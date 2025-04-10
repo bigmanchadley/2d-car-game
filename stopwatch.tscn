@@ -1,0 +1,52 @@
+[gd_scene load_steps=3 format=3 uid="uid://di3125n0u5o62"]
+
+[ext_resource type="Script" path="res://stopwatch.gd" id="1_45rnl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rx8mb"]
+size = Vector2(20, 182)
+
+[node name="stopwatch" type="Node2D"]
+script = ExtResource("1_45rnl")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -11)
+shape = SubResource("RectangleShape2D_rx8mb")
+
+[node name="TimeLabel" type="Label" parent="."]
+offset_left = -259.0
+offset_top = 30.0
+offset_right = -195.0
+offset_bottom = 53.0
+
+[node name="BestLap" type="Label" parent="."]
+offset_left = 412.0
+offset_top = 87.0
+offset_right = 476.0
+offset_bottom = 110.0
+
+[node name="Label" type="Label" parent="BestLap"]
+layout_mode = 0
+offset_top = -24.0
+offset_right = 66.0
+offset_bottom = -1.0
+text = "Best Lap"
+
+[node name="LastLap" type="Label" parent="."]
+offset_left = 301.0
+offset_top = 89.0
+offset_right = 341.0
+offset_bottom = 112.0
+
+[node name="Label" type="Label" parent="LastLap"]
+layout_mode = 0
+offset_left = -14.0
+offset_top = -23.0
+offset_right = 51.0
+text = "Last Lap"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
