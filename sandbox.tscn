@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://pr2aeibdrcfg"]
+
+[ext_resource type="PackedScene" uid="uid://dlr5p5t4s818b" path="res://car.tscn" id="1_a2pja"]
+[ext_resource type="Script" path="res://tire_tracks.gd" id="2_mpj5k"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Car" parent="." instance=ExtResource("1_a2pja")]
+position = Vector2(464, 291)
+
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2(456, 281)
+points = PackedVector2Array(0, 0)
+default_color = Color(0, 0, 0, 1)
+script = ExtResource("2_mpj5k")

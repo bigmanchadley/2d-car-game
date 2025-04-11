@@ -12,10 +12,6 @@
 [node name="Track" type="Sprite2D" parent="."]
 texture = ExtResource("1_tyeml")
 
-[node name="Car" parent="." instance=ExtResource("2_0pc2n")]
-position = Vector2(-349, -437)
-rotation = 1.5708
-
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Grayblocking" type="Node2D" parent="."]
@@ -493,7 +489,6 @@ polygon = PackedVector2Array(-64, 64, -64, -64, 64, -64, 64, 64)
 [node name="StaticBody2D47" type="StaticBody2D" parent="Grayblocking"]
 position = Vector2(-588, -179)
 rotation = 0.23911
-scale = Vector2(1, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="Grayblocking/StaticBody2D47"]
 modulate = Color(0, 0, 0, 1)
@@ -826,3 +821,6 @@ position = Vector2(-203, -405)
 [node name="FinishLine" type="Sprite2D" parent="."]
 position = Vector2(-204, -429)
 texture = ExtResource("6_8y0st")
+
+[node name="Car" parent="." instance=ExtResource("2_0pc2n")]
+position = Vector2(-250, -416)

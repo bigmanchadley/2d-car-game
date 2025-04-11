@@ -1,20 +1,77 @@
-[gd_scene load_steps=4 format=3 uid="uid://dlr5p5t4s818b"]
+[gd_scene load_steps=6 format=3 uid="uid://dlr5p5t4s818b"]
 
 [ext_resource type="Texture2D" uid="uid://l13d1v5v27nm" path="res://art/redcar.png" id="1_u41an"]
 [ext_resource type="Script" path="res://car_script.gd" id="2_1meuc"]
+[ext_resource type="Script" path="res://tire_tracks.gd" id="3_8uldr"]
+[ext_resource type="Texture2D" uid="uid://vg0m7wsm0qxl" path="res://art/track_gradient.tres" id="4_t0b7k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_imhki"]
 size = Vector2(16, 34)
 
-[node name="Car" type="CharacterBody2D"]
+[node name="Car" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 z_index = 2
+rotation = 1.5708
 collision_layer = 2
 script = ExtResource("2_1meuc")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("RectangleShape2D_imhki")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture_filter = 2
 texture_repeat = 1
 texture = ExtResource("1_u41an")
+
+[node name="tire_fl" type="Node2D" parent="CharacterBody2D"]
+position = Vector2(-8, -10)
+
+[node name="tire_fr" type="Node2D" parent="CharacterBody2D"]
+position = Vector2(8, -10)
+
+[node name="tire_bl" type="Node2D" parent="CharacterBody2D"]
+position = Vector2(-8, 13)
+
+[node name="tire_br" type="Node2D" parent="CharacterBody2D"]
+position = Vector2(8, 13)
+
+[node name="Line2D_br" type="Line2D" parent="."]
+position = Vector2(8, 13)
+points = PackedVector2Array(0, 0)
+width = 5.0
+texture = ExtResource("4_t0b7k")
+texture_mode = 2
+antialiased = true
+script = ExtResource("3_8uldr")
+tire_path = NodePath("../CharacterBody2D/tire_br")
+
+[node name="Line2D_bl" type="Line2D" parent="."]
+position = Vector2(8, 13)
+points = PackedVector2Array(0, 0)
+width = 5.0
+texture = ExtResource("4_t0b7k")
+texture_mode = 2
+antialiased = true
+script = ExtResource("3_8uldr")
+tire_path = NodePath("../CharacterBody2D/tire_bl")
+
+[node name="Line2D_fl" type="Line2D" parent="."]
+position = Vector2(8, 13)
+points = PackedVector2Array(0, 0)
+width = 5.0
+texture = ExtResource("4_t0b7k")
+texture_mode = 2
+antialiased = true
+script = ExtResource("3_8uldr")
+tire_path = NodePath("../CharacterBody2D/tire_fl")
+
+[node name="Line2D_fr" type="Line2D" parent="."]
+position = Vector2(8, 13)
+points = PackedVector2Array(0, 0)
+width = 5.0
+texture = ExtResource("4_t0b7k")
+texture_mode = 2
+antialiased = true
+script = ExtResource("3_8uldr")
+tire_path = NodePath("../CharacterBody2D/tire_fr")
