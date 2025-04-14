@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://di3125n0u5o62"]
 
-[ext_resource type="Script" path="res://stopwatch.gd" id="1_45rnl"]
+[ext_resource type="Script" path="res://scripts/stopwatch.gd" id="1_45rnl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rx8mb"]
 size = Vector2(20, 182)

@@ -23,6 +23,5 @@ func _process(delta):
 	newpos += change
 	prev = cur
 	add_point(newpos)
-	print_debug(get_point_count())
 	if get_point_count() > 500:
 		remove_point(0)

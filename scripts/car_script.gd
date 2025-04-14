@@ -1,5 +1,11 @@
 extends CharacterBody2D
 
+
+@export var input_up: String
+@export var input_down: String
+@export var input_left: String
+@export var input_right: String
+
 ##### Constants #####
 const MAX_SPEED = 300
 const POWER = 300
@@ -90,9 +96,9 @@ func player_input(delta):
 	# Gather Inputs: Forward/Backward
 	var fwd_dir = Vector2(0,0)
 	var bwd_dir = Vector2(0,0)
-	if Input.is_action_pressed("Forward"):
+	if Input.is_action_pressed(input_up):
 		fwd_dir = Vector2(0, -1)
-	if Input.is_action_pressed("Backward"):
+	if Input.is_action_pressed(input_down):
 		bwd_dir = Vector2(0, 1)
 	# Store Acceleration direction
 	accel_dir = (fwd_dir + bwd_dir).rotated(rotation).normalized()
@@ -101,13 +107,13 @@ func player_input(delta):
 	turn_left = Vector2(0,0)
 	turn_right = Vector2(0,0)
 
-	if Input.is_action_pressed("Left"):
+	if Input.is_action_pressed(input_left):
 		l = min(l + delta, 1.0) # this clamps 0 and 1
 		turn_left = Vector2(-0.573576 * l, -0.819152).rotated(rotation) # up to 35 degree angle (aproximately)
 		#rotation -= 1 * delta
 	else:
 		l = 0
-	if Input.is_action_pressed("Right"):
+	if Input.is_action_pressed(input_right):
 		r = min(r + delta, 1.0) # this clamps 0 and 1
 		turn_right = Vector2(0.573576 * r, -0.819152).rotated(rotation) # 35 degrees
 		#rotation += 1 * delta
