@@ -32,11 +32,6 @@ func _process(delta):
 		label.text = display_time
 
 
-
-func _on_area_2d_area_exited(area):
-	pass # Replace with function body.
-
-
 func _on_area_2d_body_exited(body):
 	if body.get_name() == "Car":
 		total_time = 0.0

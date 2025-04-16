@@ -9,6 +9,7 @@
 size = Vector2(16, 34)
 
 [node name="Player1" type="Node2D"]
+position = Vector2(181, 232)
 
 [node name="Car" type="CharacterBody2D" parent="."]
 z_index = 2

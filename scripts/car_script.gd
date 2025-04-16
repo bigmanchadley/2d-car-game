@@ -32,8 +32,13 @@ var maintained_vel = Vector2(0,0)
 var transferred_vel
 var medial_vel
 var lateral_vel
-var lateral_friction = 0.0
+var lateral_friction
 var is_drifting = false
+var is_accelerating = false
+
+
+var rot_momentum = 0.0
+const MAX_ROT_TORQUE = 10500 # POWER * Max turning radius degree: 300 * 35
 
 
 ###################################### START MAIN ############################################
@@ -49,13 +54,13 @@ func _physics_process(delta):
 	acceleration(delta)
 	steering(delta)
 	
-	# queue_redraw()
+	queue_redraw()
 
 	move_and_slide()
 
 ####################################### END MAIN ###############################################
 ####################################### DEBUGGER ###############################################
-# func _draw():
+func _draw():
 	
 # 	draw_line(Vector2.ZERO, global_transform.basis_xform_inv(steer_dir) * 50, Color(0, 1, 0), 3)
 	# #draw_line(Vector2.ZERO, turn_left * 50, Color(1, 0, 0), 2)
@@ -64,14 +69,14 @@ func _physics_process(delta):
 	# draw_line(Vector2.ZERO, global_transform.basis_xform_inv(dynamic_etr_left) * 50, Color(1,0,0), 4)
 	# draw_line(Vector2.ZERO, global_transform.basis_xform_inv(dynamic_etr_right) * 50, Color(1,0,0), 4)
 	# #draw_line(Vector2.ZERO, new_etr * 50, Color(0,0,1), 4)
-	# draw_line(Vector2.ZERO, global_transform.basis_xform_inv(velocity) * 2, Color(1,1,1), 5) # white
+	draw_line(Vector2.ZERO, global_transform.basis_xform_inv(velocity) * 2, Color(1,1,1), 5) # white
 	# #draw_line(Vector2.ZERO, global_transform.basis_xform_inv(accel_dir) * 50, Color(1,0,1), 4) # pink
 	# draw_line(Vector2.ZERO, global_transform.basis_xform_inv(force_addition) * 2, Color(0,0,1), 3) #blue
 	# #draw_line(Vector2.ZERO, global_transform.basis_xform_inv(maintained_vel) * 2, Color(1,1,0), 4) #yellow
 	# #draw_line(Vector2.ZERO, global_transform.basis_xform_inv(transferred_vel) * 2, Color(0,1,1), 3) #teal
 	# #draw_line(Vector2.ZERO, global_transform.basis_xform_inv(perp_vector) * 52, Color(0,0,1), 3) #blue
-	# draw_line(Vector2.ZERO, global_transform.basis_xform_inv(medial_vel) * 2, Color(0.5,0.5,1), 3) #light blue
-	# draw_line(Vector2.ZERO, global_transform.basis_xform_inv(lateral_vel) * 2, Color(1,0.5,0.5), 3) #pink
+	draw_line(Vector2.ZERO, global_transform.basis_xform_inv(medial_vel) * 2, Color(0.5,0.5,1), 3) #light blue
+	draw_line(Vector2.ZERO, global_transform.basis_xform_inv(lateral_vel) * 2, Color(1,0.5,0.5), 3) #pink
 
 
 	# NOTES
@@ -129,7 +134,11 @@ func player_input(delta):
 #################################################################################################
 func acceleration(delta):
 
-	force_addition = (accel_dir * torque * delta) 
+	force_addition = (accel_dir * torque * delta)
+	if force_addition != Vector2(0,0):
+		is_accelerating = true
+	else:
+		is_accelerating = false
 
 
 
@@ -137,6 +146,8 @@ func acceleration(delta):
 func steering(delta):
 	# Least Dependant
 	var fwd_dir = Vector2.UP.rotated(rotation)
+	var vel_dir = velocity.normalized()
+	var vel_mag = velocity.length()
 		
 
 
@@ -164,35 +175,83 @@ func steering(delta):
 	lateral_vel = (velocity - medial_speed * fwd_dir)
 	medial_vel = medial_speed * fwd_dir
 
+	var lateral_mag = lateral_vel.length()
+	var lateral_dir = lateral_vel.normalized()
 
-	if is_drifting:
-		if lateral_vel.length() < 10:
-			is_drifting = false
-	else:
-		if lateral_vel.length() > 10:
-			is_drifting = true
+	
+	# Lateral friction: The controlling variable that allows drifting
+		# Culmination of: lateral_vel.length(), velocity.length()?, is_accelerating, traction_vector?
 
-	if is_drifting:
-		var t = clamp(lateral_vel.length() / 100, 0, 1)
-		var min_friction = 0.9
-		var max_friction = 0.99
-		lateral_friction = lerp(min_friction, max_friction, t)
-	else:
-		lateral_friction = 0.0
+	# How does car start to slide?
+	# when the lateral_vel.length() is > the traction_vector (Doesnt need to be a )
+		# consider subtracting the traction size from the lateral vel constantly so there isn't a surge when traction is broken, it bleeds in
+	var accel_factor = 0.997 # if not accelerating the friction value is reduced to 90%
+	if is_accelerating:
+		accel_factor = 1.0 # if accelerating the friction value stays at 100%
+
+	var friction_ratio = lateral_mag / 100
+	var friction_weight = clamp(friction_ratio, 0.0, 1.0)
+
+	lateral_friction = lerp(0.9, 0.99, friction_weight) * accel_factor
+	#print_debug(lateral_friction)
+
+	lateral_vel *= lateral_friction
+
 
 
 	var medial_friction = 0.9999 # WIP
-	velocity = (lateral_vel * lateral_friction) + (medial_vel * medial_friction) + force_addition
+	velocity = (lateral_vel) + (medial_vel * medial_friction) + force_addition
+	##################################################################################################
+	############### Start Rotation ##############
+
+	# ALIGNING ROTATION NEEDS TO BE SMALL
+	# alignment = the direction the car wants to align to 
+	# alignment = velocity.normalized().dot(fwd_dir) # -1 to 1
+	# print_debug("alignment: ",	alignment)
+	# var misalignment = velocity.normalized().cross(fwd_dir)
+	# print_debug("misalignment:	", misalignment)
+	# var traction = clamp(alignment, 0.0, 1.0)
+	# print_debug("traction:	", traction)
+	# var aligning_force = traction * -misalignment
+	# print_debug("aligning_force: ",	aligning_force)
+	# END ALIGNING
+
+	var rot_dir = -sign(steer_degree)
 
 
-	var car_length = 34
-	var d = velocity.length() * delta # maybe shouldn't use magnitude?
- 
+	rot_momentum +=  4 * rot_dir * delta
 
-	if steer_degree != 0:
-		var real_turn_radius = car_length/sin(abs(steer_dir.angle_to(Vector2.UP.rotated(rotation))))
-		var turn_angle = d/real_turn_radius
-		rotation += turn_angle * sign(-steer_degree)
+
+	# TO DO NEXT
+	# Take the abs value of the alignment since it doesn't matter if it aligned fwd or bwd
+	# rotational momentum can't really exist unless the car is sliding
+		# So, either use states, or replicate states doing some turn rate to velocity ratio to
+			# dictate if rot_momentum is used or just a constant turn radius is used.
+	# GPT ####################################################################
+	var speed_ratio = clamp(velocity.length() / 200, 0.0, 1.0)
+	var alignment = velocity.normalized().dot(fwd_dir) # 0 to 1
+
+
+	# Less friction at higher speeds
+	var angular_friction = lerp(0.95, 0.99, speed_ratio * (1.0 - alignment))
+	############################################################################
+	print_debug("alignment: 	", alignment)
+	print_debug("weight:	", speed_ratio * (1.0 - alignment))
+	print_debug("angular_friction:	", angular_friction)
+
+	rot_momentum *= pow(angular_friction, delta)
+	rot_momentum = clamp(rot_momentum, -2, 2)
+	#print_debug("rot_momentum:	", rot_momentum)
+
+	rotation += rot_momentum * delta
+
+	# Working Code
+	# var car_length = 34
+	# var d = velocity.length() * delta # maybe shouldn't use magnitude?
+	# if steer_degree != 0:
+	# 	var real_turn_radius = car_length/sin(abs(steer_dir.angle_to(Vector2.UP.rotated(rotation))))
+	# 	var turn_angle = d/real_turn_radius
+	# 	rotation += turn_angle * sign(-steer_degree)
 
 
 	return null
