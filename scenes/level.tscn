@@ -140,7 +140,7 @@ modulate = Color(0, 0, 0, 1)
 texture = ExtResource("3_1p1kj")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Grayblocking/StaticBody2D12"]
-polygon = PackedVector2Array(-64, 64, -64, -64, 64, -64, 64, 64)
+polygon = PackedVector2Array(-52, 64, -64, 50.0751, -64, -64, 64, -64, 64, 64)
 
 [node name="StaticBody2D13" type="StaticBody2D" parent="Grayblocking"]
 position = Vector2(727, 173)
@@ -436,7 +436,7 @@ modulate = Color(0, 0, 0, 1)
 texture = ExtResource("3_1p1kj")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Grayblocking/StaticBody2D41"]
-polygon = PackedVector2Array(-64, 52, -64, -64, 64, -64, 64, 64, -51.6772, 64)
+polygon = PackedVector2Array(-64, 52, -64, -49.0115, -51, -64, 64, -64, 64, 64, -51.6772, 64)
 
 [node name="StaticBody2D42" type="StaticBody2D" parent="Grayblocking"]
 position = Vector2(-965, 92)
@@ -457,7 +457,7 @@ modulate = Color(0, 0, 0, 1)
 texture = ExtResource("3_1p1kj")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Grayblocking/StaticBody2D43"]
-polygon = PackedVector2Array(-64, 64, -64, -64, 64, -64, 64, 49, 51.4978, 64)
+polygon = PackedVector2Array(-64, 64, -64, -64, 51.56, -64, 63.6053, -51.5302, 64, 49, 51.4978, 64)
 
 [node name="StaticBody2D44" type="StaticBody2D" parent="Grayblocking"]
 position = Vector2(-613, 196)
@@ -498,7 +498,7 @@ modulate = Color(0, 0, 0, 1)
 texture = ExtResource("3_1p1kj")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Grayblocking/StaticBody2D47"]
-polygon = PackedVector2Array(-64, 64, -64, -50.6299, -54.6817, -63.8663, 64, -64, 64, 64)
+polygon = PackedVector2Array(-63.1075, 49.3503, -64, -50.6299, -54.6817, -63.8663, 64, -64, 64, 64, -50.3661, 64)
 
 [node name="StaticBody2D48" type="StaticBody2D" parent="Grayblocking"]
 position = Vector2(-927, -86)
@@ -508,7 +508,7 @@ modulate = Color(0, 0, 0, 1)
 texture = ExtResource("3_1p1kj")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Grayblocking/StaticBody2D48"]
-polygon = PackedVector2Array(-64, 64, -64, -64, 64, -64, 64, 64)
+polygon = PackedVector2Array(-64, 64, -64, -64, 50.5639, -64, 64, -50, 64, 64)
 
 [node name="StaticBody2D50" type="StaticBody2D" parent="Grayblocking"]
 position = Vector2(-769, -333)
