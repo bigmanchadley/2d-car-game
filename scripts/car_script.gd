@@ -14,40 +14,28 @@ const POWER = 300
 ##### Variables #####
 var fwd_dir: Vector2
 var alignment: float
-
 var gear
 var torque
 var brake_check: bool
 var is_braking: bool
 var brake_friction: float
-var medial_vel = Vector2(0,0)
-var lateral_vel = Vector2(0,0)
+var rot_dir: float
 
 
-#############
+# Localize these variables?
 var fwd_input
 var bwd_input
-
-var turn_left = Vector2(0,0)
-var turn_right = Vector2(0,0)
-var steer_dir 
+var turn_left 
+var turn_right
 var accel_dir
 
+# Put in on ready?
 var force_addition = Vector2.ZERO
-var dynamic_etr
-var dynamic_etr_left
-var dynamic_etr_right
-var new_etr
-var maintained_vel = Vector2(0,0)
-var transferred_vel
-
 var is_accelerating = false
-
-
 var traction = 1.0
-var rot_dir
 var rot_momentum = 0.0
-const MAX_ROT_TORQUE = 10500 # POWER * Max turning radius degree: 300 * 35
+var medial_vel = Vector2(0,0)
+var lateral_vel = Vector2(0,0)
 
 
 ###################################### START MAIN ############################################
@@ -134,7 +122,7 @@ func player_input():
 	if reverse_correct == 0:
 		reverse_correct = 1
 
-	steer_dir = (turn_left + turn_right).normalized() * reverse_correct
+	var steer_dir = (turn_left + turn_right).normalized() * reverse_correct
 	if steer_dir == Vector2(0,0):							
 		steer_dir = fwd_dir
 	rot_dir = clamp(fwd_dir.cross(steer_dir), -1.0, 1.0)
