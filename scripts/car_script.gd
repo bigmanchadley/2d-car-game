@@ -15,6 +15,9 @@ const POWER = 300
 var l = 0.0
 var r = 0.0
 
+var fwd_input
+var bwd_input
+
 var turn_left = Vector2(0,0)
 var turn_right = Vector2(0,0)
 var steer_dir 
@@ -63,16 +66,16 @@ func _physics_process(delta):
 ####################################### DEBUGGER ###############################################
 func _draw():
 	
-# 	draw_line(Vector2.ZERO, global_transform.basis_xform_inv(steer_dir) * 50, Color(0, 1, 0), 3)
-	# #draw_line(Vector2.ZERO, turn_left * 50, Color(1, 0, 0), 2)
-	# #draw_line(Vector2.ZERO, turn_right * 50, Color(1, 0, 0), 2)
+	draw_line(Vector2.ZERO, global_transform.basis_xform_inv(steer_dir) * 50, Color(0, 1, 0), 3)
+	draw_line(Vector2.ZERO, global_transform.basis_xform_inv(turn_left) * 50, Color(1, 0, 0), 2)
+	draw_line(Vector2.ZERO, global_transform.basis_xform_inv(turn_right) * 50, Color(1, 0, 0), 2)
 	# #draw_line(Vector2.ZERO, accel_dir_debug * 50, Color(0, 0, 1), 2)
 	# draw_line(Vector2.ZERO, global_transform.basis_xform_inv(dynamic_etr_left) * 50, Color(1,0,0), 4)
 	# draw_line(Vector2.ZERO, global_transform.basis_xform_inv(dynamic_etr_right) * 50, Color(1,0,0), 4)
 	# #draw_line(Vector2.ZERO, new_etr * 50, Color(0,0,1), 4)
 	#draw_line(Vector2.ZERO, global_transform.basis_xform_inv(velocity) * 2, Color(1,1,1), 5) # white
 	# #draw_line(Vector2.ZERO, global_transform.basis_xform_inv(accel_dir) * 50, Color(1,0,1), 4) # pink
-	draw_line(Vector2.ZERO, global_transform.basis_xform_inv(force_addition) * 50, Color(0,0,1), 3) #blue
+	#draw_line(Vector2.ZERO, global_transform.basis_xform_inv(force_addition) * 50, Color(0,0,1), 3) #blue
 	# #draw_line(Vector2.ZERO, global_transform.basis_xform_inv(maintained_vel) * 2, Color(1,1,0), 4) #yellow
 	# #draw_line(Vector2.ZERO, global_transform.basis_xform_inv(transferred_vel) * 2, Color(0,1,1), 3) #teal
 	# #draw_line(Vector2.ZERO, global_transform.basis_xform_inv(perp_vector) * 52, Color(0,0,1), 3) #blue
@@ -102,9 +105,7 @@ func torque_calculation():
 func player_input(delta):
 	# Gather Inputs: Forward/Backward
 	var fwd_dir = Vector2.UP.rotated(rotation)
-	
-	var fwd_input
-	var bwd_input
+
 	var brake_check
 	if Input.is_action_pressed(input_up):
 		fwd_input = Vector2(0, -1)
@@ -120,32 +121,37 @@ func player_input(delta):
 	# Store Acceleration direction
 	accel_dir = (fwd_input + bwd_input).rotated(rotation).normalized()
 
-	# Gather Inputs: Left/Right
-	turn_left = Vector2(0,0)
-	turn_right = Vector2(0,0)
+
+	#############################################################################
+	# Gather Inputs: Left/Right #################################################
+
 
 	if Input.is_action_pressed(input_left):
-		l = min(l + delta, 1.0) # this clamps 0 and 1
-		turn_left = Vector2(-0.573576 * l, -0.819152).rotated(rotation) # up to 35 degree angle (aproximately)
-		$Sprite2D.frame = 1
+		turn_left = Vector2.LEFT.rotated(rotation)
 	else:
-		l = 0
+		turn_left = Vector2(0,0)
 		
 	if Input.is_action_pressed(input_right):
-		r = min(r + delta, 1.0) # this clamps 0 and 1
-		turn_right = Vector2(0.573576 * r, -0.819152).rotated(rotation) # 35 degrees
-		$Sprite2D.frame = 2
+		turn_right = Vector2.RIGHT.rotated(rotation)
 	else:
-		r = 0
+		turn_right = Vector2(0,0)
+
 	var reverse_correct = sign(fwd_dir.dot(velocity))
+	if reverse_correct == 0:
+		reverse_correct = 1
 
 	steer_dir = (turn_left + turn_right).normalized() * reverse_correct
 	if steer_dir == Vector2(0,0):							
 		steer_dir = fwd_dir
-
+	rot_dir = fwd_dir.cross(steer_dir)
+	#############################################################################
 	# Car Sprite Switcher #######################################################
 	if steer_dir == fwd_dir:
 		$Sprite2D.frame = 0
+	elif steer_dir == turn_left:
+		$Sprite2D.frame = 1
+	elif steer_dir == turn_right:
+		$Sprite2D.frame = 2
 	#############################################################################
 	# Braking #############################################################
 	
@@ -289,7 +295,7 @@ func steering(delta):
 	#print_debug("misalignment:	", misalignment)
 	#############################################################################
 	# Rotation Momentum #########################################################
-	rot_dir = -sign(steer_degree)
+	#rot_dir = -sign(steer_degree)
 	var rot_speed = 4
 	# rot_traction: When aligned traction = 1 down to 0.5 at 90 degree slide
 					# however, when velocity = 0, rot_traction needs to = 0
