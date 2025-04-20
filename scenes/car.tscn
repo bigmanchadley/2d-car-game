@@ -11,10 +11,11 @@ size = Vector2(16, 34)
 [node name="Player1" type="Node2D"]
 position = Vector2(181, 232)
 
-[node name="Car" type="CharacterBody2D" parent="."]
+[node name="Car" type="CharacterBody2D" parent="." groups=["cars"]]
 z_index = 2
 rotation = 1.5708
 collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_p8up7")
 input_up = "P1_Forward"
 input_down = "P1_Backward"

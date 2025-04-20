@@ -52,6 +52,7 @@ polygon = PackedVector2Array(-64, 64, -64, -64, 64, -64, 64, 64)
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="Grayblocking"]
 position = Vector2(499, -356)
+collision_mask = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Grayblocking/StaticBody2D4"]
 modulate = Color(0, 0, 0, 1)

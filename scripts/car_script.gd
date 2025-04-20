@@ -20,6 +20,9 @@ var brake_check: bool
 var is_braking: bool
 var brake_friction: float
 var rot_dir: float
+var is_turning_left: bool
+var is_turning_right: bool
+var is_reversing: bool
 
 
 # Localize these variables?
@@ -46,11 +49,22 @@ func _physics_process(delta):
 	steering(delta)
 	
 	queue_redraw()
-
 	move_and_slide()
+
+	for i in range(get_slide_collision_count()):
+		var collision = get_slide_collision(i)
+		print_debug(collision)
+		if collision.get_collider().is_in_group("cars"):
+			car_crash(collision, delta)
+
+func _ready():
+	velocity = Vector2.ZERO
 
 ####################################### END MAIN ###############################################
 ####################################### DEBUGGER ###############################################
+func car_crash(collision, delta):
+	var collider = collision.get_collider()
+	velocity += collider.get_velocity() * delta
 func _draw():
 	
 	#draw_line(Vector2.ZERO, global_transform.basis_xform_inv(steer_dir) * 50, Color(0, 1, 0), 3)
@@ -70,9 +84,6 @@ func _draw():
 	#draw_line(Vector2.ZERO, global_transform.basis_xform_inv(lateral_vel) * 2, Color(1,0.5,0.5), 3) #pink
 	#draw_line(Vector2.ZERO + Vector2.UP * 20, global_transform.basis_xform_inv(sign(rot_dir) * Vector2.RIGHT.rotated(rotation)) * 52, Color(0,0,1), 3) #blue
 	pass
-
-	# NOTES
-	# The draw_line apparently does a rotation pass or something. So I have to pass an unrotated value or there will be a mismatch (double rotation)
 
 
 ################################## Function Declarations ########################################
@@ -97,9 +108,11 @@ func player_input():
 	if Input.is_action_pressed(input_down):
 		bwd_input = Vector2(0, 1)
 		brake_check = true
+		is_reversing = true
 	else:
 		bwd_input = Vector2(0,0)
 		brake_check = false
+		is_reversing = false
 	# Store Acceleration direction
 	accel_dir = (fwd_input + bwd_input).rotated(rotation).normalized()
 
@@ -110,30 +123,32 @@ func player_input():
 
 	if Input.is_action_pressed(input_left):
 		turn_left = Vector2.LEFT.rotated(rotation)
+		is_turning_left = true
 	else:
 		turn_left = Vector2(0,0)
+		is_turning_left = false
 		
 	if Input.is_action_pressed(input_right):
 		turn_right = Vector2.RIGHT.rotated(rotation)
+		is_turning_right = true
 	else:
 		turn_right = Vector2(0,0)
+		is_turning_right = false
 
-	var reverse_correct = sign(fwd_dir.dot(velocity))
-	if reverse_correct == 0:
-		reverse_correct = 1
-
-	var steer_dir = (turn_left + turn_right).normalized() * reverse_correct
-	if steer_dir == Vector2(0,0):							
-		steer_dir = fwd_dir
+	var steer_dir = (turn_left + turn_right).normalized()
 	rot_dir = clamp(fwd_dir.cross(steer_dir), -1.0, 1.0)
+	# if is_reversing:
+	# 	rot_dir *= -1.0
+
 	#############################################################################
 	# Car Sprite Switcher #######################################################
-	var steer_visual = steer_dir * reverse_correct
-	if steer_visual == fwd_dir:
+	var turn_direction = 0
+	turn_direction = int(is_turning_left) + int(is_turning_right)
+	if turn_direction == 0 or turn_direction == 2:
 		$Sprite2D.frame = 0
-	elif steer_visual == turn_left:
+	elif is_turning_left:
 		$Sprite2D.frame = 1
-	elif steer_visual == turn_right:
+	elif is_turning_right:
 		$Sprite2D.frame = 2
 	#############################################################################
 
@@ -159,12 +174,17 @@ func steering(delta):
 	var medial_speed = velocity.dot(fwd_dir)
 	medial_vel = medial_speed * fwd_dir
 	lateral_vel = (velocity - medial_speed * fwd_dir)
+	var medial_mag = medial_vel.length()
+	var misalignment = vel_dir.cross(fwd_dir)
+
 	#############################################################################
 	# Lateral Friction ##########################################################
 	var lateral_mag = lateral_vel.length()
 	var accel_factor = 0.997 # if not accelerating the friction value is reduced (friction increases)
 	if is_accelerating:
-		accel_factor = 1.0 # if accelerating the friction value stays at 100%
+		#accel_factor = 1.0 # if accelerating the friction value stays at 100%
+		var torque_ratio = clamp(vel_mag/300, 0.0, 1.0) * abs(misalignment)
+		accel_factor = lerp(1.0, 1.005, torque_ratio)
 	var lateral_friction_ratio = lateral_mag / 100
 	var lateral_friction_weight = clamp(lateral_friction_ratio, 0.0, 1.0)
 	var lateral_friction = lerp(0.9, 0.99, lateral_friction_weight) * accel_factor
@@ -183,30 +203,52 @@ func steering(delta):
 	velocity = (lateral_vel) + (medial_vel) + force_addition
 	#############################################################################
 	# Angular Friction ##########################################################
-	var speed_ratio = clamp(velocity.length() / 200, 0.0, 1.0)
+	var speed_ratio = clamp(velocity.length() / 100, 0.0, 1.0)
 	var abs_alignment = abs(alignment) # 0 to 1
 	if velocity == Vector2(0,0):
 		abs_alignment = 1
 		# More angular friction at low speed - May need to change but certainly works as a bandaid
-	var angular_friction = lerp(0.1, 0.99, speed_ratio * (1.0 - abs_alignment))
+	var rot_momentum_weight = clamp(abs(rot_momentum) / 2.0, 0.0, 1.0)
+	#print_debug("rot_momentum_weight:	", rot_momentum_weight)
+	var alignment_weight = pow(abs_alignment, 2.0)
+	var angular_friction = lerp(0.1, 0.99, speed_ratio * rot_momentum_weight)
+	#print_debug("angular_friction: ", angular_friction)
+	#print_debug("abs_alignment:	", abs_alignment)
+	#print_debug("weight_af:	", speed_ratio * (1.0 - abs_alignment))
+	#print_debug("angular_friction:	", angular_friction)
 	#############################################################################
 	# Alignment Force ###########################################################
-	var misalignment = vel_dir.cross(fwd_dir)
 	traction = lerp(0.5, 1.0, abs_alignment)
 	var aligning_force = traction * -misalignment
+	#print_debug("align_force:	", aligning_force)
 	#############################################################################
 	# Rotation Momentum #########################################################
-	var rot_speed = 4
-	var rot_traction = traction * clamp(vel_mag/100, 0.0, 1.0)
+		# Relative torque is torque relative to either medial or current velocity
+		# rot_torque increases: alignment
+		# rot_torque decreases: as velocity increases
+	# ROTATION TORQUE NEEDS TUNING!!!
+	var rot_traction = traction * clamp(vel_mag/200, 0.0, 1.0)
+
+	var torque_factor = clamp(torque / 300, 0.0, 1.0)
+	var velocity_factor = clamp(vel_mag / MAX_SPEED, 0.0, 1.0)
+	var rot_torque = lerp(0.0, 3.0, velocity_factor  * torque_factor * abs_alignment * int(is_accelerating))
+	#print_debug("rot_torque:	", rot_torque)
+	#print_debug("abs_alignment:	", abs_alignment)
+
+	var rot_const = 4
+	var rot_input = (rot_const + rot_torque) * rot_traction * rot_dir
+	#print_debug("rot_input:	", rot_input)
 		# Replace the 4 with a rot_speed or rot torque. Consider variability vs constant
 		# May want rot_speed to be a value that increases with velocity? Or torque or sudden change in velocity?
 		# rot_dir = User Input: -1, 0, or 1
-	rot_momentum += (aligning_force + rot_speed * rot_traction * rot_dir) * delta
+	rot_momentum += (aligning_force + rot_input) * delta
 	rot_momentum *= pow(angular_friction, delta)
-	rot_momentum = clamp(rot_momentum, -4, 4)
+	#print_debug("af_delta_time:	", pow(angular_friction, delta))
+	rot_momentum = clamp(rot_momentum, -6, 6)
+	#print_debug("rot_momentum:	", rot_momentum)
 	#############################################################################
 	# Rotation ##################################################################
-	rotation += rot_momentum * delta
+	rotation += rot_momentum * delta #* (medial_mag / 150)
 
 	#############################################################################
 

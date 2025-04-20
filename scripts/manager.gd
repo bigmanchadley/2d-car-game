@@ -15,7 +15,7 @@ var starting_position_1 = Vector2(-245, -430)
 var starting_position_2 = Vector2(-245, -400)
 var starting_position_3 = Vector2(-245, -370)
 
-var desired_player_count = 1
+var desired_player_count = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	spawn_players()
@@ -64,4 +64,4 @@ func _on_add_drop_player_pressed():
 		desired_player_count = 1
 	spawn_players()
 	print_debug("button pressed")
-	pass # Replace with function body.
+
