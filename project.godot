@@ -11,13 +11,12 @@ config_version=5
 [application]
 
 config/name="2D Car"
-run/main_scene="res://scenes/level.tscn"
+run/main_scene="res://scenes/car.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://art/level_assets/icon.svg"
 
 [display]
 
-window/size/mode=2
 window/snap/snap_2d_transforms_to_pixel=false
 
 [global_group]

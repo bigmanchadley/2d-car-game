@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dlr5p5t4s818b"]
+[gd_scene load_steps=7 format=3 uid="uid://dlr5p5t4s818b"]
 
+[ext_resource type="Texture2D" uid="uid://dpluicqj04g6o" path="res://art/level_assets/icon.svg" id="1_6hexj"]
 [ext_resource type="Script" path="res://scripts/car_script.gd" id="1_p8up7"]
 [ext_resource type="Texture2D" uid="uid://bhdsg48mgw5lb" path="res://art/car_assets/redcar.png" id="2_5qraj"]
 [ext_resource type="Texture2D" uid="uid://vg0m7wsm0qxl" path="res://art/car_assets/track_gradient.tres" id="3_rbfkt"]
@@ -10,12 +11,14 @@ size = Vector2(16, 34)
 
 [node name="Player1" type="Node2D"]
 position = Vector2(181, 232)
+rotation = 1.31598
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_6hexj")
 
 [node name="Car" type="CharacterBody2D" parent="." groups=["cars"]]
 z_index = 2
-rotation = 1.5708
 collision_layer = 2
-collision_mask = 3
 script = ExtResource("1_p8up7")
 input_up = "P1_Forward"
 input_down = "P1_Backward"

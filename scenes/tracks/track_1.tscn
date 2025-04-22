@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2a80wsmyd5r6"]
+
+[ext_resource type="Texture2D" uid="uid://4wupky5nab6q" path="res://art/level_assets/track_01.png" id="1_37kkp"]
+[ext_resource type="PackedScene" uid="uid://dlr5p5t4s818b" path="res://scenes/car.tscn" id="1_xsvvl"]
+[ext_resource type="PackedScene" uid="uid://co7rt48d3pgb5" path="res://camera_2d.tscn" id="2_1vnvd"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="background" type="Sprite2D" parent="."]
+texture = ExtResource("1_37kkp")
+
+[node name="Camera2D" parent="." instance=ExtResource("2_1vnvd")]
+
+[node name="Player1" parent="." instance=ExtResource("1_xsvvl")]
+position = Vector2(-895, -470)
+rotation = 1.31598

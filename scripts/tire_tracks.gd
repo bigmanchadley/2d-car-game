@@ -11,6 +11,7 @@ func _ready():
 	if tire_path:
 		transform_node = get_node(tire_path)
 		self.global_position = transform_node.global_position
+		self.global_rotation = 0
 	else:
 		push_error("Line2d: path not assigned")
 	
