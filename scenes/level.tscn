@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://nsl1wge56ik8"]
+[gd_scene load_steps=9 format=3 uid="uid://nsl1wge56ik8"]
 
 [ext_resource type="Script" path="res://scripts/manager.gd" id="1_thy2q"]
 [ext_resource type="Texture2D" uid="uid://bh2g0hfqpvtpm" path="res://art/level_assets/background_gray.png" id="2_r4v1k"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://di3125n0u5o62" path="res://scenes/stopwatch.tscn" id="5_ik65n"]
 [ext_resource type="Texture2D" uid="uid://m207qdfcfo3e" path="res://art/level_assets/finishline.png" id="6_5166p"]
 [ext_resource type="Texture2D" uid="uid://naoov38akb7q" path="res://art/car_assets/yellowcar.png" id="7_qij7g"]
+[ext_resource type="PackedScene" uid="uid://c40jm6pitsefu" path="res://scenes/countdown.tscn" id="8_4grcc"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_thy2q")
@@ -332,5 +333,8 @@ polygon = PackedVector2Array(-1, 83, 55, 43, 84, -33, 79, -47, -20, -86, -35, -8
 [node name="Polygon2D" type="Polygon2D" parent="Polyblocking/StaticBody2D6/CollisionPolygon2D"]
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(-1, 83, 55, 43, 84, -33, 79, -47, -20, -86, -35, -80, -80, -43, -90, -20, -90, 69, -78, 83)
+
+[node name="countdown" parent="." instance=ExtResource("8_4grcc")]
+position = Vector2(-123, -426)
 
 [connection signal="pressed" from="add_drop_player" to="." method="_on_add_drop_player_pressed"]
