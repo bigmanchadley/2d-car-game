@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byimh6o7cvytd"
-path="res://.godot/imported/track_01.png-e163083c0938fb92e8063f9f0dda2247.ctex"
+uid="uid://b4xuo5gfy0v0h"
+path="res://.godot/imported/track_background_white.png-e614acff68fe92b88c6a6324745c3460.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/level_assets/track_01.png"
-dest_files=["res://.godot/imported/track_01.png-e163083c0938fb92e8063f9f0dda2247.ctex"]
+source_file="res://art/level_assets/track_background_white.png"
+dest_files=["res://.godot/imported/track_background_white.png-e614acff68fe92b88c6a6324745c3460.ctex"]
 
 [params]
 

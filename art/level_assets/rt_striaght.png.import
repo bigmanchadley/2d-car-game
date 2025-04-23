@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byimh6o7cvytd"
-path="res://.godot/imported/track_01.png-e163083c0938fb92e8063f9f0dda2247.ctex"
+uid="uid://7y2h8er0brsc"
+path="res://.godot/imported/rt_striaght.png-6934838a67ef2c754f2dcb5758653ee6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/level_assets/track_01.png"
-dest_files=["res://.godot/imported/track_01.png-e163083c0938fb92e8063f9f0dda2247.ctex"]
+source_file="res://art/level_assets/rt_striaght.png"
+dest_files=["res://.godot/imported/rt_striaght.png-6934838a67ef2c754f2dcb5758653ee6.ctex"]
 
 [params]
 

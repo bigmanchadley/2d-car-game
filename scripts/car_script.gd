@@ -172,7 +172,6 @@ func acceleration(delta):
 func steering(delta):
 	#############################################################################
 	# Gather variable state #####################################################
-	print_debug(is_reversing)
 	var vel_dir = velocity.normalized()
 	var vel_mag = velocity.length()
 	var medial_speed = velocity.dot(fwd_dir)
