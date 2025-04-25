@@ -1,30 +1,59 @@
 extends Node2D
 
-
+# scenes
 const CAR_SCENE = preload("res://scenes/car.tscn")
+const COUNTDOWN_SCENE = preload("res://scenes/countdown.tscn")
+const STOPWATCH_SCENE = preload("res://scenes/stopwatch.tscn")
+# assets
 const CAR_RED = preload("res://art/car_assets/redcar.png")
 const CAR_BLACK = preload("res://art/car_assets/blackcar.png")
 const CAR_YELLOW = preload("res://art/car_assets/yellowcar.png")
 
-#Players
+
+
+# Instantiate
+	#Players
 var p1
 var p2
+	#Countdown
+var countdown
+	#stopwatch (includes laptimers)
+var stopwatch
 
 
+
+# Switch to new locations-node model for better level design
 var starting_position_1 = Vector2(-245, -430)
 var starting_position_2 = Vector2(-245, -400)
 var starting_position_3 = Vector2(-245, -370)
 
-var desired_player_count = 0
+var player_count = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	spawn_players()
-
+	#start_countdown()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
+
+func start_countdown():
+	print_debug("made it here")
+	if countdown != null:
+		countdown.queue_free()
+		countdown = null
+	countdown = COUNTDOWN_SCENE.instantiate()
+	countdown.position = $locations/countdown_location.position
+	add_child(countdown)
+
+func start_laps():
+	if stopwatch != null:
+		stopwatch.queue_free()
+		stopwatch = null
+	stopwatch = STOPWATCH_SCENE.instantiate()
+	stopwatch.position = $locations/stopwatch_location.position # This is still giga hardcoded since there is only 1 stopwatch location for 3 labels
+	add_child(stopwatch)
 
 func spawn_players():
 	if p1:
@@ -34,7 +63,7 @@ func spawn_players():
 		p2.queue_free()
 		p2 = null
 
-	if desired_player_count >= 1:
+	if player_count >= 1:
 		p1 = CAR_SCENE.instantiate()
 		p1.position = starting_position_1
 		var p1_car = p1.get_node("Car")
@@ -45,7 +74,7 @@ func spawn_players():
 		p1_car.input_left = "P1_Left"
 		p1_car.input_right = "P1_Right"
 		add_child(p1)
-	if desired_player_count >= 2:
+	if player_count >= 2:
 		p2 = CAR_SCENE.instantiate()
 		p2.position = starting_position_2
 		var p2_car = p2.get_node("Car")
@@ -59,9 +88,12 @@ func spawn_players():
 
 
 func _on_add_drop_player_pressed():
-	desired_player_count += 1
-	if desired_player_count > 2:
-		desired_player_count = 1
+	player_count += 1
+	if player_count > 2:
+		player_count = 1
 	spawn_players()
+	if player_count > 0:
+		start_countdown()
+		start_laps()
 	print_debug("button pressed")
 

@@ -7,6 +7,7 @@ script = ExtResource("1_gpc4i")
 
 [node name="Label" type="Label" parent="."]
 modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
 offset_left = -20.0
 offset_top = -11.0
 offset_right = 20.0

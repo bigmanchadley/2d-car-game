@@ -3,7 +3,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 
-var label
+var currentlap
 var bestlap
 var lastlap
 
@@ -15,7 +15,7 @@ var display_time = "00:00"
 
 
 func _ready():
-	label = $TimeLabel
+	currentlap = $TimeLabel
 	bestlap = $BestLap
 	lastlap = $LastLap
 
@@ -29,7 +29,7 @@ func _process(delta):
 		var seconds = total_centiseconds / 100
 		var remainder = total_centiseconds % 100
 		display_time = str(seconds).pad_zeros(2) + " : " + str(remainder).pad_zeros(2)
-		label.text = display_time
+		currentlap.text = display_time
 
 
 func _on_area_2d_body_exited(body):

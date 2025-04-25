@@ -1,13 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://nsl1wge56ik8"]
+[gd_scene load_steps=7 format=3 uid="uid://nsl1wge56ik8"]
 
 [ext_resource type="Script" path="res://scripts/manager.gd" id="1_thy2q"]
 [ext_resource type="Texture2D" uid="uid://b4xuo5gfy0v0h" path="res://art/level_assets/track_background_white.png" id="2_lvosy"]
 [ext_resource type="PackedScene" uid="uid://co7rt48d3pgb5" path="res://scenes/camera_2d.tscn" id="3_ae52s"]
 [ext_resource type="PackedScene" uid="uid://e6cbta467dna" path="res://scenes/kerb_pair.tscn" id="4_d4j1b"]
-[ext_resource type="PackedScene" uid="uid://di3125n0u5o62" path="res://scenes/stopwatch.tscn" id="5_ik65n"]
 [ext_resource type="Texture2D" uid="uid://m207qdfcfo3e" path="res://art/level_assets/finishline.png" id="6_5166p"]
 [ext_resource type="Texture2D" uid="uid://naoov38akb7q" path="res://art/car_assets/yellowcar.png" id="7_qij7g"]
-[ext_resource type="PackedScene" uid="uid://c40jm6pitsefu" path="res://scenes/countdown.tscn" id="8_4grcc"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_thy2q")
@@ -251,10 +249,6 @@ rotation = 1.5708
 position = Vector2(-396, -488)
 rotation = 1.5708
 
-[node name="stopwatch" parent="." instance=ExtResource("5_ik65n")]
-z_index = 1
-position = Vector2(-203, -405)
-
 [node name="FinishLine" type="Sprite2D" parent="."]
 position = Vector2(-204, -429)
 texture = ExtResource("6_5166p")
@@ -334,7 +328,12 @@ polygon = PackedVector2Array(-1, 83, 55, 43, 84, -33, 79, -47, -20, -86, -35, -8
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(-1, 83, 55, 43, 84, -33, 79, -47, -20, -86, -35, -80, -80, -43, -90, -20, -90, 69, -78, 83)
 
-[node name="countdown" parent="." instance=ExtResource("8_4grcc")]
-position = Vector2(-123, -426)
+[node name="locations" type="Node2D" parent="."]
+
+[node name="countdown_location" type="Node2D" parent="locations"]
+position = Vector2(-116, -426)
+
+[node name="stopwatch_location" type="Node2D" parent="locations"]
+position = Vector2(-203, -405)
 
 [connection signal="pressed" from="add_drop_player" to="." method="_on_add_drop_player_pressed"]

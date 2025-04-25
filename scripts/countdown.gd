@@ -8,11 +8,13 @@ var time_left: float
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print_debug("hello")
 	time_left = total_countdown_time
 	countdown_label.text = str(total_countdown_time)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	print_debug("hello 2")
 	time_left -= delta
 	if time_left > 1:
 		countdown_label.text = str(int(time_left))
