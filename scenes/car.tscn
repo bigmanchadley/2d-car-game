@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dlr5p5t4s818b"]
+[gd_scene load_steps=7 format=3 uid="uid://dlr5p5t4s818b"]
 
 [ext_resource type="Script" path="res://scripts/car_script.gd" id="1_p8up7"]
 [ext_resource type="Texture2D" uid="uid://bhdsg48mgw5lb" path="res://art/car_assets/redcar.png" id="2_5qraj"]
+[ext_resource type="PackedScene" uid="uid://bl51jqn6p6miy" path="res://scenes/engine_sound.tscn" id="3_di6wo"]
 [ext_resource type="Texture2D" uid="uid://vg0m7wsm0qxl" path="res://art/car_assets/track_gradient.tres" id="3_rbfkt"]
 [ext_resource type="Script" path="res://scripts/tire_tracks.gd" id="4_6hv21"]
 
@@ -41,6 +42,8 @@ position = Vector2(-6.99995, 13)
 
 [node name="tire_br" type="Node2D" parent="Car"]
 position = Vector2(7.00005, 13)
+
+[node name="AudioStreamPlayer2D" parent="Car" instance=ExtResource("3_di6wo")]
 
 [node name="Line2D_br" type="Line2D" parent="."]
 position = Vector2(8, 13)

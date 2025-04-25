@@ -13,6 +13,13 @@ const POWER = 300
 
 @export var rot_const = 4
 
+#### Sound ####
+var rpm: float
+var throttle := 0.0
+var prev_gear
+
+
+
 ##### Variables #####
 var fwd_dir: Vector2
 var accel_dir: Vector2
@@ -40,7 +47,7 @@ var lateral_vel: Vector2
 ###################################### START MAIN ############################################
 func _physics_process(delta):
 	update_variables()
-	player_input()
+	player_input(delta)
 	acceleration(delta)
 	steering(delta)
 	
@@ -57,6 +64,7 @@ func _ready():
 	rot_momentum = 0.0
 	medial_vel = Vector2(0,0)
 	lateral_vel = Vector2(0,0)
+	prev_gear = gear
 ####################################### END MAIN ###############################################
 ####################################### DEBUGGER ###############################################
 
@@ -86,14 +94,19 @@ func _draw():
 func update_variables():
 	gear = clamp(ceil((medial_vel.length() / MAX_SPEED) * 6), 1, 6)
 	torque = POWER / gear
+	# rpms
+
 	fwd_dir = Vector2.UP.rotated(global_rotation)
 	alignment = velocity.normalized().dot(fwd_dir) # 0 to 1
 	is_braking = brake_check and alignment > 0.1
 	brake_friction = 0.99 if is_braking else 1.0
 	is_reversing = alignment < 0.0 and is_braking == false
 
+func get_rpm():
+	return rpm
+
 #################################################################################################
-func player_input():
+func player_input(delta):
 	var fwd_input: Vector2
 	var bwd_input: Vector2
 	var turn_left: Vector2
@@ -104,8 +117,11 @@ func player_input():
 	if Input.is_action_pressed(input_up):
 		fwd_input = Vector2(0, -1)
 		is_reversing = false
+		throttle = lerp(throttle, 1.0, delta * 3.0)
 	else:
 		fwd_input = Vector2(0,0)
+		throttle = lerp(throttle, 0.0, delta * 3.0)
+
 
 	if Input.is_action_pressed(input_down):
 		bwd_input = Vector2(0, 1)
@@ -166,6 +182,17 @@ func acceleration(delta):
 		is_accelerating = false
 		force_addition *= 0.2
 
+	#rpms
+	var speed_rpm = medial_vel.length()
+	var input_rpm = throttle * 7000.0
+	var target_rpm = clamp(max(speed_rpm, input_rpm), 800.0, 7000.0)
+	rpm = lerp(rpm, target_rpm, delta * 1.0)
+
+	
+
+	if rpm > 6500.0 and gear != prev_gear:
+		rpm = 1000.0 * gear
+	prev_gear = gear
 
 
 #################################################################################################

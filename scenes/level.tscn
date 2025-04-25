@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://nsl1wge56ik8"]
 
 [ext_resource type="Script" path="res://scripts/manager.gd" id="1_thy2q"]
-[ext_resource type="Texture2D" uid="uid://bh2g0hfqpvtpm" path="res://art/level_assets/background_gray.png" id="2_r4v1k"]
+[ext_resource type="Texture2D" uid="uid://b4xuo5gfy0v0h" path="res://art/level_assets/track_background_white.png" id="2_lvosy"]
 [ext_resource type="PackedScene" uid="uid://co7rt48d3pgb5" path="res://scenes/camera_2d.tscn" id="3_ae52s"]
 [ext_resource type="PackedScene" uid="uid://e6cbta467dna" path="res://scenes/kerb_pair.tscn" id="4_d4j1b"]
 [ext_resource type="PackedScene" uid="uid://di3125n0u5o62" path="res://scenes/stopwatch.tscn" id="5_ik65n"]
@@ -13,7 +13,7 @@
 script = ExtResource("1_thy2q")
 
 [node name="Track" type="Sprite2D" parent="."]
-texture = ExtResource("2_r4v1k")
+texture = ExtResource("2_lvosy")
 
 [node name="Camera2D" parent="." instance=ExtResource("3_ae52s")]
 
