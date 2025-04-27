@@ -17,7 +17,7 @@ var p1
 var p2
 	#Countdown
 var countdown
-	#stopwatch (includes laptimers)
+	#stopwatch (includes laptimers) # desperately needs to be decoupled or made intelligent (give locations to children somehow)
 var stopwatch
 
 
@@ -27,7 +27,7 @@ var starting_position_1 = Vector2(-245, -430)
 var starting_position_2 = Vector2(-245, -400)
 var starting_position_3 = Vector2(-245, -370)
 
-var player_count = 0
+var player_count = 1
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	spawn_players()
@@ -39,7 +39,6 @@ func _process(delta):
 
 
 func start_countdown():
-	print_debug("made it here")
 	if countdown != null:
 		countdown.queue_free()
 		countdown = null
@@ -95,5 +94,4 @@ func _on_add_drop_player_pressed():
 	if player_count > 0:
 		start_countdown()
 		start_laps()
-	print_debug("button pressed")
 
