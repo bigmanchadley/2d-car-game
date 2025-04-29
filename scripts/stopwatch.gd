@@ -10,7 +10,7 @@ var lastlap
 var trigger
 var total_time = 0.0
 var start_timer = false
-var best_time = 0.0
+var best_time = 99.0
 var display_time = "00:00"
 
 
@@ -41,13 +41,11 @@ func _on_area_2d_body_exited(body):
 
 func _on_area_2d_body_entered(body):
 	if body.get_name() == "Car":
-		if total_time < best_time:
+		if total_time < best_time and total_time >= 20.0:
 			bestlap.text = display_time
 			best_time = total_time
-		if best_time == 0.0:
-			bestlap.text = display_time
-			best_time = total_time
-		lastlap.text = display_time
+			lastlap.text = display_time
+		#lastlap.text = display_time
 		start_timer = false
 
 	pass # Replace with function body.

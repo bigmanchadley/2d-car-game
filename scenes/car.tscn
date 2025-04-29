@@ -10,7 +10,7 @@
 size = Vector2(16, 34)
 
 [node name="Player1" type="Node2D"]
-position = Vector2(181, 232)
+position = Vector2(180, 232)
 rotation = 1.5708
 
 [node name="Car" type="CharacterBody2D" parent="." groups=["cars"]]

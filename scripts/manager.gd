@@ -27,7 +27,7 @@ var starting_position_1 = Vector2(-245, -430)
 var starting_position_2 = Vector2(-245, -400)
 var starting_position_3 = Vector2(-245, -370)
 
-var player_count = 1
+var player_count = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	spawn_players()

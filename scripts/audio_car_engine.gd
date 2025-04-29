@@ -15,6 +15,7 @@ func _ready():
 	stream.loop = true
 	playing = true
 	prev_rpm = 0
+	volume_db = -15.0
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
