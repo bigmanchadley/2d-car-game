@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dlr5p5t4s818b" path="res://scenes/car.tscn" id="1_cbkxy"]
 [ext_resource type="PackedScene" uid="uid://co7rt48d3pgb5" path="res://scenes/camera_2d.tscn" id="2_orm3m"]
-[ext_resource type="Texture2D" uid="uid://kmflhnm8lp02" path="res://art/level_assets/Test_track.png" id="3_5xi6j"]
+[ext_resource type="Texture2D" uid="uid://kmflhnm8lp02" path="res://art/tracks/Test_track.png" id="3_5xi6j"]
 
 [node name="Node2D" type="Node2D"]
 

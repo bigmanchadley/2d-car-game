@@ -94,4 +94,3 @@ func _on_add_drop_player_pressed():
 	if player_count > 0:
 		start_countdown()
 		start_laps()
-

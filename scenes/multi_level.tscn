@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://x8563xu6ctt0"]
+
+[ext_resource type="Script" path="res://scripts/manager.gd" id="1_psp4u"]
+[ext_resource type="Texture2D" uid="uid://naoov38akb7q" path="res://art/car_assets/yellowcar.png" id="2_4erug"]
+[ext_resource type="PackedScene" uid="uid://co7rt48d3pgb5" path="res://scenes/camera_2d.tscn" id="3_swa2y"]
+[ext_resource type="Texture2D" uid="uid://i32crd5pupp3" path="res://art/tracks/track_bl.png" id="4_8o3rt"]
+[ext_resource type="Texture2D" uid="uid://cqdccnhg7jq07" path="res://art/tracks/track_tl.png" id="5_23h3p"]
+[ext_resource type="Texture2D" uid="uid://b2haq01bb3oes" path="res://art/tracks/track_tr.png" id="6_hgab4"]
+[ext_resource type="Texture2D" uid="uid://ccx6umaa0pjfn" path="res://art/tracks/track_br.png" id="7_qg7f6"]
+[ext_resource type="Texture2D" uid="uid://m207qdfcfo3e" path="res://art/level_assets/finishline.png" id="8_ydwhd"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_psp4u")
+
+[node name="add_drop_player" type="Button" parent="."]
+visibility_layer = 16
+z_index = 1
+texture_filter = 1
+texture_repeat = 1
+offset_left = 644.0
+offset_top = 123.0
+offset_right = 751.0
+offset_bottom = 169.0
+text = "+- Players
+"
+icon = ExtResource("2_4erug")
+
+[node name="locations" type="Node2D" parent="."]
+
+[node name="countdown_location" type="Node2D" parent="locations"]
+position = Vector2(529, 160)
+
+[node name="stopwatch_location" type="Node2D" parent="locations"]
+position = Vector2(695, 288)
+
+[node name="track_bl" type="Sprite2D" parent="."]
+texture = ExtResource("4_8o3rt")
+
+[node name="track_tl" type="Sprite2D" parent="."]
+position = Vector2(0, -1080)
+texture = ExtResource("5_23h3p")
+
+[node name="track_tr" type="Sprite2D" parent="."]
+position = Vector2(1920, -1080)
+texture = ExtResource("6_hgab4")
+
+[node name="track_br" type="Sprite2D" parent="."]
+position = Vector2(1920, 0)
+texture = ExtResource("7_qg7f6")
+
+[node name="FinishLine" type="Sprite2D" parent="."]
+position = Vector2(693, 282)
+texture = ExtResource("8_ydwhd")
+
+[node name="Camera2D" parent="." instance=ExtResource("3_swa2y")]
+
+[connection signal="pressed" from="add_drop_player" to="." method="_on_add_drop_player_pressed"]
