@@ -2,14 +2,14 @@
 
 [ext_resource type="PackedScene" uid="uid://dlr5p5t4s818b" path="res://scenes/car.tscn" id="1_cbkxy"]
 [ext_resource type="PackedScene" uid="uid://co7rt48d3pgb5" path="res://scenes/camera_2d.tscn" id="2_orm3m"]
-[ext_resource type="Texture2D" uid="uid://kmflhnm8lp02" path="res://art/tracks/Test_track.png" id="3_5xi6j"]
+[ext_resource type="PackedScene" uid="uid://chdcx8vkx07in" path="res://scenes/tracks/island/island_01.tscn" id="3_knu4q"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Camera2D" parent="." instance=ExtResource("2_orm3m")]
 
-[node name="track_sprite" type="Sprite2D" parent="."]
-texture = ExtResource("3_5xi6j")
-
 [node name="Player1" parent="." instance=ExtResource("1_cbkxy")]
-position = Vector2(-928, 464)
+position = Vector2(932, 167)
+rotation = -2.01935
+
+[node name="track_root" parent="." instance=ExtResource("3_knu4q")]

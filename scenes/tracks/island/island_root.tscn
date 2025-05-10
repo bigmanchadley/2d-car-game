@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=3 uid="uid://0as8m75vcrcr"]
+
+[ext_resource type="PackedScene" uid="uid://chdcx8vkx07in" path="res://scenes/tracks/island/island_01.tscn" id="1_22dyi"]
+[ext_resource type="PackedScene" uid="uid://c43vsu0bgb1kv" path="res://scenes/tracks/island/island_02.tscn" id="2_yh8yt"]
+[ext_resource type="PackedScene" uid="uid://snn74yr7dtrl" path="res://scenes/tracks/island/island_03.tscn" id="3_r33nm"]
+[ext_resource type="PackedScene" uid="uid://dhydxlay35x21" path="res://scenes/tracks/island/island_04.tscn" id="4_51r2e"]
+[ext_resource type="PackedScene" uid="uid://co7rt48d3pgb5" path="res://scenes/camera_2d.tscn" id="5_xsvad"]
+[ext_resource type="PackedScene" uid="uid://dlr5p5t4s818b" path="res://scenes/car.tscn" id="6_3kt6m"]
+
+[node name="island_root" type="Node2D"]
+
+[node name="island_01" parent="." instance=ExtResource("1_22dyi")]
+
+[node name="island_02" parent="." instance=ExtResource("2_yh8yt")]
+position = Vector2(0, -1080)
+
+[node name="island_03" parent="." instance=ExtResource("3_r33nm")]
+position = Vector2(1920, -1080)
+
+[node name="island_04" parent="." instance=ExtResource("4_51r2e")]
+position = Vector2(1920, 0)
+
+[node name="Camera2D" parent="." instance=ExtResource("5_xsvad")]
+
+[node name="Player1" parent="." instance=ExtResource("6_3kt6m")]
+position = Vector2(407, 282)
+rotation = -1.4207

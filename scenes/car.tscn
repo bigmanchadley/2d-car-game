@@ -10,11 +10,55 @@
 size = Vector2(16, 34)
 
 [node name="Player1" type="Node2D"]
+z_index = 1
 position = Vector2(180, 232)
 rotation = 1.5708
 
-[node name="Car" type="CharacterBody2D" parent="." groups=["cars"]]
+[node name="Line2D_br" type="Line2D" parent="."]
 z_index = 2
+position = Vector2(8, 13)
+points = PackedVector2Array(0, 0)
+width = 4.0
+texture = ExtResource("3_rbfkt")
+texture_mode = 2
+antialiased = true
+script = ExtResource("4_6hv21")
+tire_path = NodePath("../Car/tire_br")
+
+[node name="Line2D_bl" type="Line2D" parent="."]
+z_index = 2
+position = Vector2(8, 13)
+points = PackedVector2Array(0, 0)
+width = 4.0
+texture = ExtResource("3_rbfkt")
+texture_mode = 2
+antialiased = true
+script = ExtResource("4_6hv21")
+tire_path = NodePath("../Car/tire_bl")
+
+[node name="Line2D_fl" type="Line2D" parent="."]
+z_index = 2
+position = Vector2(8, 13)
+points = PackedVector2Array(0, 0)
+width = 4.0
+texture = ExtResource("3_rbfkt")
+texture_mode = 2
+antialiased = true
+script = ExtResource("4_6hv21")
+tire_path = NodePath("../Car/tire_fl")
+
+[node name="Line2D_fr" type="Line2D" parent="."]
+z_index = 2
+position = Vector2(8, 13)
+points = PackedVector2Array(0, 0)
+width = 4.0
+texture = ExtResource("3_rbfkt")
+texture_mode = 2
+antialiased = true
+script = ExtResource("4_6hv21")
+tire_path = NodePath("../Car/tire_fr")
+
+[node name="Car" type="CharacterBody2D" parent="." groups=["cars"]]
 collision_layer = 2
 script = ExtResource("1_p8up7")
 input_up = "P1_Forward"
@@ -26,6 +70,7 @@ input_right = "P1_Right"
 shape = SubResource("RectangleShape2D_imhki")
 
 [node name="Sprite2D" type="Sprite2D" parent="Car"]
+z_index = 2
 texture_filter = 2
 texture_repeat = 1
 texture = ExtResource("2_5qraj")
@@ -44,43 +89,3 @@ position = Vector2(-6.99995, 13)
 position = Vector2(7.00005, 13)
 
 [node name="AudioStreamPlayer2D" parent="Car" instance=ExtResource("3_di6wo")]
-
-[node name="Line2D_br" type="Line2D" parent="."]
-position = Vector2(8, 13)
-points = PackedVector2Array(0, 0)
-width = 4.0
-texture = ExtResource("3_rbfkt")
-texture_mode = 2
-antialiased = true
-script = ExtResource("4_6hv21")
-tire_path = NodePath("../Car/tire_br")
-
-[node name="Line2D_bl" type="Line2D" parent="."]
-position = Vector2(8, 13)
-points = PackedVector2Array(0, 0)
-width = 4.0
-texture = ExtResource("3_rbfkt")
-texture_mode = 2
-antialiased = true
-script = ExtResource("4_6hv21")
-tire_path = NodePath("../Car/tire_bl")
-
-[node name="Line2D_fl" type="Line2D" parent="."]
-position = Vector2(8, 13)
-points = PackedVector2Array(0, 0)
-width = 4.0
-texture = ExtResource("3_rbfkt")
-texture_mode = 2
-antialiased = true
-script = ExtResource("4_6hv21")
-tire_path = NodePath("../Car/tire_fl")
-
-[node name="Line2D_fr" type="Line2D" parent="."]
-position = Vector2(8, 13)
-points = PackedVector2Array(0, 0)
-width = 4.0
-texture = ExtResource("3_rbfkt")
-texture_mode = 2
-antialiased = true
-script = ExtResource("4_6hv21")
-tire_path = NodePath("../Car/tire_fr")
