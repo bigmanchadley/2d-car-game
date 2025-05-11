@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dxt15cm37fw2n"]
+[gd_scene load_steps=3 format=3 uid="uid://dxt15cm37fw2n"]
 
 [ext_resource type="Texture2D" uid="uid://b4xuo5gfy0v0h" path="res://art/level_assets/track_background_white.png" id="1_66wsg"]
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_vp5sq"]
 
 [node name="main_menu" type="Node2D"]
+script = ExtResource("1_vp5sq")
 
 [node name="background" type="Sprite2D" parent="."]
 texture = ExtResource("1_66wsg")

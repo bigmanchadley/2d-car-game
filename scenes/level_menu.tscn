@@ -5,3 +5,4 @@
 [node name="Level Menu" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
+text = "Level Menu"
