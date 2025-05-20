@@ -1,8 +1,101 @@
-[gd_scene format=3 uid="uid://dej5yrja0e1ij"]
+[gd_scene load_steps=2 format=3 uid="uid://dej5yrja0e1ij"]
+
+[ext_resource type="Script" path="res://scripts/level_menu.gd" id="1_j5qvd"]
 
 [node name="level_menu" type="Node2D"]
+script = ExtResource("1_j5qvd")
 
-[node name="Level Menu" type="Label" parent="."]
+[node name="level_menu_canvas" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="level_menu_canvas"]
 offset_right = 40.0
-offset_bottom = 23.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="level_menu_canvas/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="GridContainer2" type="GridContainer" parent="level_menu_canvas/PanelContainer/MarginContainer"]
+layout_mode = 2
+columns = 4
+
+[node name="CarSelect" type="Label" parent="level_menu_canvas/PanelContainer/MarginContainer/GridContainer2"]
+layout_mode = 2
+text = "
+"
+
+[node name="MarginContainer" type="MarginContainer" parent="level_menu_canvas/PanelContainer/MarginContainer/GridContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="Player1" type="Label" parent="level_menu_canvas/PanelContainer/MarginContainer/GridContainer2/MarginContainer"]
+layout_mode = 2
+text = "Player 1"
+
+[node name="MarginContainer2" type="MarginContainer" parent="level_menu_canvas/PanelContainer/MarginContainer/GridContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="Player2" type="Label" parent="level_menu_canvas/PanelContainer/MarginContainer/GridContainer2/MarginContainer2"]
+layout_mode = 2
+text = "Player 2"
+
+[node name="MarginContainer3" type="MarginContainer" parent="level_menu_canvas/PanelContainer/MarginContainer/GridContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="Player3" type="Label" parent="level_menu_canvas/PanelContainer/MarginContainer/GridContainer2/MarginContainer3"]
+layout_mode = 2
+text = "Player 3"
+
+[node name="MarginContainer4" type="MarginContainer" parent="level_menu_canvas/PanelContainer/MarginContainer/GridContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="add_drop" type="Button" parent="level_menu_canvas/PanelContainer/MarginContainer/GridContainer2/MarginContainer4"]
+layout_mode = 2
+text = "add/drop"
+
+[node name="p1_car_select" type="Button" parent="level_menu_canvas/PanelContainer/MarginContainer/GridContainer2"]
+layout_mode = 2
+text = "p1 car"
+
+[node name="p2_car_select" type="Button" parent="level_menu_canvas/PanelContainer/MarginContainer/GridContainer2"]
+layout_mode = 2
+text = "p2 car"
+
+[node name="p3_car_select" type="Button" parent="level_menu_canvas/PanelContainer/MarginContainer/GridContainer2"]
+layout_mode = 2
+text = "p3 car"
+
+[node name="LevelContainer" type="GridContainer" parent="level_menu_canvas"]
+offset_left = 1101.0
+offset_top = 396.0
+offset_right = 1190.0
+offset_bottom = 524.0
+
+[node name="LevelMenu" type="Label" parent="level_menu_canvas/LevelContainer"]
+layout_mode = 2
 text = "Level Menu"
+
+[node name="level_button" type="Button" parent="level_menu_canvas/LevelContainer"]
+layout_mode = 2
+text = "Level 1"
+
+[node name="back_button" type="Button" parent="level_menu_canvas/LevelContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="start_button" type="Button" parent="level_menu_canvas/LevelContainer"]
+layout_mode = 2
+text = "Start
+"

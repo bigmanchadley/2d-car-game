@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://0as8m75vcrcr"]
 
-[ext_resource type="PackedScene" uid="uid://chdcx8vkx07in" path="res://scenes/tracks/island/island_01.tscn" id="1_22dyi"]
-[ext_resource type="PackedScene" uid="uid://c43vsu0bgb1kv" path="res://scenes/tracks/island/island_02.tscn" id="2_yh8yt"]
-[ext_resource type="PackedScene" uid="uid://snn74yr7dtrl" path="res://scenes/tracks/island/island_03.tscn" id="3_r33nm"]
-[ext_resource type="PackedScene" uid="uid://dhydxlay35x21" path="res://scenes/tracks/island/island_04.tscn" id="4_51r2e"]
+[ext_resource type="PackedScene" uid="uid://chdcx8vkx07in" path="res://scenes/track_builds/island/island_01.tscn" id="1_22dyi"]
+[ext_resource type="PackedScene" uid="uid://c43vsu0bgb1kv" path="res://scenes/track_builds/island/island_02.tscn" id="2_yh8yt"]
+[ext_resource type="PackedScene" uid="uid://snn74yr7dtrl" path="res://scenes/track_builds/island/island_03.tscn" id="3_r33nm"]
+[ext_resource type="PackedScene" uid="uid://dhydxlay35x21" path="res://scenes/track_builds/island/island_04.tscn" id="4_51r2e"]
 [ext_resource type="PackedScene" uid="uid://co7rt48d3pgb5" path="res://scenes/camera_2d.tscn" id="5_xsvad"]
 [ext_resource type="PackedScene" uid="uid://dlr5p5t4s818b" path="res://scenes/car.tscn" id="6_3kt6m"]
 

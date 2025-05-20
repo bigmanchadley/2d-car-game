@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://co7rt48d3pgb5" path="res://scenes/camera_2d.tscn" id="3_ae52s"]
 [ext_resource type="PackedScene" uid="uid://e6cbta467dna" path="res://scenes/kerb_pair.tscn" id="4_d4j1b"]
 [ext_resource type="Texture2D" uid="uid://m207qdfcfo3e" path="res://art/level_assets/finishline.png" id="6_5166p"]
-[ext_resource type="Texture2D" uid="uid://naoov38akb7q" path="res://art/car_assets/yellowcar.png" id="7_qij7g"]
+[ext_resource type="Texture2D" uid="uid://dseadhf6ygvtn" path="res://art/car_assets/yellowcar.png" id="7_qij7g"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_thy2q")

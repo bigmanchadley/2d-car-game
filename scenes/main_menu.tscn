@@ -1,24 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxt15cm37fw2n"]
+[gd_scene load_steps=2 format=3 uid="uid://dxt15cm37fw2n"]
 
-[ext_resource type="Texture2D" uid="uid://b4xuo5gfy0v0h" path="res://art/level_assets/track_background_white.png" id="1_66wsg"]
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_vp5sq"]
 
 [node name="main_menu" type="Node2D"]
 script = ExtResource("1_vp5sq")
 
-[node name="background" type="Sprite2D" parent="."]
-texture = ExtResource("1_66wsg")
+[node name="main_menu_canvas" type="CanvasLayer" parent="."]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="GridContainer" type="GridContainer" parent="main_menu_canvas"]
+offset_left = 454.0
+offset_top = 415.0
+offset_right = 495.0
+offset_bottom = 481.0
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="MainMenu" type="Label" parent="main_menu_canvas/GridContainer"]
+layout_mode = 2
+text = "Main Menu"
 
-[node name="play_button" type="Button" parent="CanvasLayer/GridContainer"]
+[node name="play_button" type="Button" parent="main_menu_canvas/GridContainer"]
 layout_mode = 2
 text = "Play"
 
-[node name="exit_button" type="Button" parent="CanvasLayer/GridContainer"]
+[node name="exit_button" type="Button" parent="main_menu_canvas/GridContainer"]
 layout_mode = 2
 text = "Exit"

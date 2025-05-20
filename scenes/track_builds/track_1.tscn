@@ -1,17 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://d2a80wsmyd5r6"]
 
-[ext_resource type="Texture2D" uid="uid://b4xuo5gfy0v0h" path="res://art/level_assets/track_background_white.png" id="1_g0l4i"]
-[ext_resource type="PackedScene" uid="uid://dlr5p5t4s818b" path="res://scenes/car.tscn" id="1_xsvvl"]
-[ext_resource type="PackedScene" uid="uid://co7rt48d3pgb5" path="res://scenes/camera_2d.tscn" id="2_1vnvd"]
+[ext_resource type="Texture2D" uid="uid://b4xuo5gfy0v0h" path="res://art/level_assets/track_background_white.png" id="1_7bq6s"]
+[ext_resource type="PackedScene" uid="uid://co7rt48d3pgb5" path="res://scenes/camera_2d.tscn" id="2_7rwhx"]
+[ext_resource type="PackedScene" uid="uid://dlr5p5t4s818b" path="res://scenes/car.tscn" id="3_3onu6"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="background" type="Sprite2D" parent="."]
-texture = ExtResource("1_g0l4i")
+texture = ExtResource("1_7bq6s")
 
-[node name="Camera2D" parent="." instance=ExtResource("2_1vnvd")]
+[node name="Camera2D" parent="." instance=ExtResource("2_7rwhx")]
 
-[node name="Player1" parent="." instance=ExtResource("1_xsvvl")]
+[node name="Player1" parent="." instance=ExtResource("3_3onu6")]
 position = Vector2(-853, -301)
 rotation = 2.99149
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dlr5p5t4s818b" path="res://scenes/car.tscn" id="1_cbkxy"]
 [ext_resource type="PackedScene" uid="uid://co7rt48d3pgb5" path="res://scenes/camera_2d.tscn" id="2_orm3m"]
-[ext_resource type="PackedScene" uid="uid://chdcx8vkx07in" path="res://scenes/tracks/island/island_01.tscn" id="3_knu4q"]
+[ext_resource type="PackedScene" uid="uid://chdcx8vkx07in" path="res://scenes/track_builds/island/island_01.tscn" id="3_knu4q"]
 
 [node name="Node2D" type="Node2D"]
 

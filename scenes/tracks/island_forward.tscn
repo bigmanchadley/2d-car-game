@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://dyvrfj1pasln0"]
+
+[ext_resource type="PackedScene" uid="uid://chdcx8vkx07in" path="res://scenes/track_builds/island/island_01.tscn" id="1_3f5xo"]
+[ext_resource type="PackedScene" uid="uid://c43vsu0bgb1kv" path="res://scenes/track_builds/island/island_02.tscn" id="2_p3ad4"]
+[ext_resource type="PackedScene" uid="uid://snn74yr7dtrl" path="res://scenes/track_builds/island/island_03.tscn" id="3_loq0u"]
+[ext_resource type="PackedScene" uid="uid://dhydxlay35x21" path="res://scenes/track_builds/island/island_04.tscn" id="4_s4ks5"]
+
+[node name="island_root" type="Node2D"]
+
+[node name="island_01" parent="." instance=ExtResource("1_3f5xo")]
+
+[node name="island_02" parent="." instance=ExtResource("2_p3ad4")]
+position = Vector2(0, -1080)
+
+[node name="island_03" parent="." instance=ExtResource("3_loq0u")]
+position = Vector2(1920, -1080)
+
+[node name="island_04" parent="." instance=ExtResource("4_s4ks5")]
+position = Vector2(1920, 0)
+
+[node name="locations" type="Node" parent="."]
+
+[node name="player_locations" type="Node" parent="locations"]
+
+[node name="start_pos_1" type="Node2D" parent="locations/player_locations"]
+position = Vector2(631, 265)
+rotation = -1.76745
+
+[node name="start_pos_2" type="Node2D" parent="locations/player_locations"]
+position = Vector2(732, 240)
+rotation = -1.87768
+
+[node name="start_pos_3" type="Node2D" parent="locations/player_locations"]
+position = Vector2(835, 207)
+rotation = -1.86913
