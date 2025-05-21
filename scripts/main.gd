@@ -5,7 +5,7 @@ const BACKGROUND = preload("res://art/level_assets/test_background.png")
 
 # Scenes
 	# Manager
-const MANAGER = preload("res://scripts/manager.tscn")
+const MANAGER = preload("res://scenes/manager.tscn")
 	# Camera
 const CAMERA = preload("res://scenes/camera_2d.tscn")
 	# UI
