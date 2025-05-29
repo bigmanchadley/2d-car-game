@@ -5,6 +5,7 @@ const CAR_SCENE = preload("res://scenes/car.tscn")
 const COUNTDOWN_SCENE = preload("res://scenes/countdown.tscn")
 const STOPWATCH_SCENE = preload("res://scenes/stopwatch.tscn")
 const CAMERA_SCENE = preload("res://scenes/camera_2d.tscn")
+const INGAME_MENU = preload("res://scenes/ingame_menu.tscn")
 # level scenes
 var level # Path to selected level scene
 var track # Instance of level
@@ -39,12 +40,16 @@ var starting_position_1
 var starting_position_2
 var starting_position_3
 
+# In game manu
+var igm
+var igm_canvas
 
 # Derived from main.gd. Assigned at instantiation
 var player_count
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	setup()
+	create_ingame_menu()
 	#spawn_level()
 	#set_start_locations()
 	#spawn_players()
@@ -52,8 +57,22 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	universal_input()
 	pass
 
+func universal_input():
+	if Input.is_action_just_pressed("Escape"):
+		toggle_ingame_menu()
+		# Open in game menu
+
+func create_ingame_menu():
+	igm = INGAME_MENU.instantiate()
+	igm_canvas = igm.get_node("CanvasLayer")
+	igm_canvas.visible = true
+	add_child(igm)
+
+func toggle_ingame_menu():
+	igm_canvas.visible = !igm_canvas.visible
 
 func start_countdown():
 	if countdown != null:
@@ -114,28 +133,6 @@ func set_start_locations():
 
 
 
-# Split Screen and General Structure
-
-# In a function that runs once in Ready()
-# The function Always creates the structure:
-
-	# VboxContainer
-		# SubViewportContainer
-			#SubViewport
-				#EverythingElse
-					# The stuff in EverythingElse
-				#Camera2D
-
-# For each player beyond 1, creates this structure for each player:
-
-		# SubViewportContainer
-			#SubViewport
-				#Camera2D
-
-# The number of players determines the size of the Viewports
-
-
-
 func setup():
 	# Always run for 1 Player
 	var v_container := VBoxContainer.new()
@@ -145,6 +142,7 @@ func setup():
 	sv_container.name = "SubViewportContainer"
 	sv.name = "SubViewport"
 	add_child(v_container)
+	v_container.add_theme_constant_override("separation", 0)
 	v_container.add_child(sv_container)
 	sv_container.add_child(sv)
 	sv.size = Vector2(1920, 540)

@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://2rwsvrsyk8al"]
+
+[ext_resource type="Script" path="res://scripts/ingame_menu.gd" id="1_6iv8a"]
+
+[node name="ingame_menu" type="Node2D"]
+script = ExtResource("1_6iv8a")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 5
+
+[node name="resume" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer/MarginContainer2"]
+layout_mode = 2
+text = "Resume"
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+
+[node name="exit_race" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer/MarginContainer"]
+layout_mode = 2
+text = "End Race"

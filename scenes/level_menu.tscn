@@ -90,10 +90,10 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="LevelContainer" type="GridContainer" parent="level_menu_canvas"]
-offset_left = 940.0
-offset_top = 692.0
-offset_right = 1029.0
-offset_bottom = 820.0
+offset_left = 819.0
+offset_top = 272.0
+offset_right = 908.0
+offset_bottom = 400.0
 
 [node name="LevelMenu" type="Label" parent="level_menu_canvas/LevelContainer"]
 layout_mode = 2
