@@ -17,6 +17,7 @@ config/icon="res://art/level_assets/icon.svg"
 
 [display]
 
+window/size/mode=3
 window/snap/snap_2d_transforms_to_pixel=false
 
 [global_group]

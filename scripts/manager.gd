@@ -1,5 +1,9 @@
 extends Node2D
 
+# signals
+signal exit_race_button_requested
+
+
 # scenes
 const CAR_SCENE = preload("res://scenes/car.tscn")
 const COUNTDOWN_SCENE = preload("res://scenes/countdown.tscn")
@@ -61,18 +65,29 @@ func _process(delta):
 	pass
 
 func universal_input():
+	# Open ingame menu
 	if Input.is_action_just_pressed("Escape"):
 		toggle_ingame_menu()
-		# Open in game menu
 
 func create_ingame_menu():
 	igm = INGAME_MENU.instantiate()
 	igm_canvas = igm.get_node("CanvasLayer")
-	igm_canvas.visible = true
+	igm_canvas.visible = false
+	igm.resume_button_requested.connect(resume_button)
+	igm.exit_race_button_requested.connect(exit_race_button)
 	add_child(igm)
 
 func toggle_ingame_menu():
 	igm_canvas.visible = !igm_canvas.visible
+	# if visible == true then pause
+
+func resume_button():
+	print_debug("resume request in manager")
+	igm_canvas.visible = false
+
+func exit_race_button():
+	print_debug("exit race requested in manager")
+	emit_signal("exit_race_button_requested")
 
 func start_countdown():
 	if countdown != null:
@@ -91,7 +106,6 @@ func start_laps():
 	add_child(stopwatch)
 
 func spawn_players(p_node):
-
 	if player_count >= 1:
 		p1 = CAR_SCENE.instantiate()
 		p1.transform = starting_position_1

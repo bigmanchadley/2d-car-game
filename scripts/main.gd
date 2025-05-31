@@ -46,11 +46,12 @@ func _ready():
 	main_menu = MAIN_MENU.instantiate()
 	main_menu.visible = true
 	main_menu.play_requested.connect(play_requested)
+	main_menu.exit_requested.connect(exit_requested)
 	main_menu_canvas = main_menu.get_node("main_menu_canvas")
 	add_child(main_menu)
 
 	level_menu = LEVEL_MENU.instantiate()
-	level_menu.visible = true
+	level_menu.visible = false
 	level_menu_canvas = level_menu.get_node("level_menu_canvas")
 	level_menu.level_menu_back_requested.connect(load_main_menu)
 	level_menu.level_button_requested.connect(set_selected_level)
@@ -76,12 +77,15 @@ func get_selected_level():
 	return selected_level
 
 
-
+# Main Menu ########################################################
 func play_requested():
-	print_debug("made it to main")
-	# Load level selector
 	load_level_menu()
 
+func exit_requested():
+	get_tree().quit()
+	
+
+####################################################################
 
 func load_main_menu():
 	# Visible = true
@@ -122,9 +126,15 @@ func start_race_requested():
 	manager.p1_sprite_choice = get_p1_car()
 	manager.p2_sprite_choice = get_p2_car()
 	manager.p3_sprite_choice = get_p3_car()
+	manager.exit_race_button_requested.connect(exit_race_requested)
 	add_child(manager)
 
 
+func exit_race_requested():
+	print_debug("all the way to main exittt")
+	manager.queue_free()
+	load_main_menu()
+	pass
 
 # Method
 # All menu scenes are loaded at launch
