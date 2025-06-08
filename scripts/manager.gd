@@ -32,6 +32,7 @@ var p2_sprite_choice
 var p3_sprite_choice
 	# Cameras
 var cam1
+var listen_cam
 	# Countdown
 var countdown
 	# stopwatch (includes laptimers) # desperately needs to be decoupled or made intelligent (give locations to children somehow)
@@ -82,11 +83,10 @@ func toggle_ingame_menu():
 	# if visible == true then pause
 
 func resume_button():
-	print_debug("resume request in manager")
+	# Need to add pause/resume functionality
 	igm_canvas.visible = false
 
 func exit_race_button():
-	print_debug("exit race requested in manager")
 	emit_signal("exit_race_button_requested")
 
 func start_countdown():
@@ -117,6 +117,8 @@ func spawn_players(p_node):
 		p1_car.input_left = "P1_Left"
 		p1_car.input_right = "P1_Right"
 		p_node.add_child(p1)
+		listen_cam = CAMERA_SCENE.instantiate()
+		p1_car.add_child(listen_cam)
 	if player_count >= 2:
 		p2 = CAR_SCENE.instantiate()
 		p2.name = "Player2"
@@ -159,7 +161,9 @@ func setup():
 	v_container.add_theme_constant_override("separation", 0)
 	v_container.add_child(sv_container)
 	sv_container.add_child(sv)
-	sv.size = Vector2(1920, 540)
+	var size_y = 1080/player_count
+	sv.size = Vector2(1920, size_y)
+	
 
 
 
@@ -197,20 +201,14 @@ func setup():
 			camera = $"VBoxContainer/SubViewportContainer1/SubViewport1/Camera2D",
 			player = $VBoxContainer/SubViewportContainer/SubViewport/Player2/Car,		
 		},
-		2: {
-			viewport = $"VBoxContainer/SubViewportContainer2/SubViewport2",
-			camera = $"VBoxContainer/SubViewportContainer2/SubViewport2/Camera2D",
-			player = $VBoxContainer/SubViewportContainer/SubViewport/Player2/Car,		
-		}		
+		# 2: {
+		# 	viewport = $"VBoxContainer/SubViewportContainer2/SubViewport2",
+		# 	camera = $"VBoxContainer/SubViewportContainer2/SubViewport2/Camera2D",
+		# 	player = $VBoxContainer/SubViewportContainer/SubViewport/Player2/Car,		
+		# }		
 	}
 	for i in range(player_count):
 		var remote_transform := RemoteTransform2D.new()
 		remote_transform.remote_path = players[i].camera.get_path()
 		players[i].player.add_child(remote_transform)
 
-
-
-
-
-
-	pass

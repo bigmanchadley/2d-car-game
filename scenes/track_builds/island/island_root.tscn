@@ -1,27 +1,67 @@
-[gd_scene load_steps=7 format=3 uid="uid://0as8m75vcrcr"]
+[gd_scene load_steps=17 format=3 uid="uid://0as8m75vcrcr"]
 
-[ext_resource type="PackedScene" uid="uid://chdcx8vkx07in" path="res://scenes/track_builds/island/island_01.tscn" id="1_22dyi"]
-[ext_resource type="PackedScene" uid="uid://c43vsu0bgb1kv" path="res://scenes/track_builds/island/island_02.tscn" id="2_yh8yt"]
-[ext_resource type="PackedScene" uid="uid://snn74yr7dtrl" path="res://scenes/track_builds/island/island_03.tscn" id="3_r33nm"]
-[ext_resource type="PackedScene" uid="uid://dhydxlay35x21" path="res://scenes/track_builds/island/island_04.tscn" id="4_51r2e"]
-[ext_resource type="PackedScene" uid="uid://co7rt48d3pgb5" path="res://scenes/camera_2d.tscn" id="5_xsvad"]
-[ext_resource type="PackedScene" uid="uid://dlr5p5t4s818b" path="res://scenes/car.tscn" id="6_3kt6m"]
+[ext_resource type="PackedScene" uid="uid://chdcx8vkx07in" path="res://scenes/track_builds/island/island_06.tscn" id="1_22dyi"]
+[ext_resource type="PackedScene" uid="uid://mnnpgcu5wtdn" path="res://scenes/track_builds/island/island_01.tscn" id="1_yyfnf"]
+[ext_resource type="PackedScene" uid="uid://b7eujp0glbpq2" path="res://scenes/track_builds/island/island_02.tscn" id="2_cyede"]
+[ext_resource type="PackedScene" uid="uid://c43vsu0bgb1kv" path="res://scenes/track_builds/island/island_07.tscn" id="2_yh8yt"]
+[ext_resource type="PackedScene" uid="uid://tdkeaywgqa1k" path="res://scenes/track_builds/island/island_03.tscn" id="3_2jbdj"]
+[ext_resource type="PackedScene" uid="uid://snn74yr7dtrl" path="res://scenes/track_builds/island/island_10.tscn" id="3_r33nm"]
+[ext_resource type="PackedScene" uid="uid://dhydxlay35x21" path="res://scenes/track_builds/island/island_11.tscn" id="4_51r2e"]
+[ext_resource type="PackedScene" uid="uid://c1phfg783cr37" path="res://scenes/track_builds/island/island_04.tscn" id="4_oenvl"]
+[ext_resource type="PackedScene" uid="uid://drn8fgekrm3s7" path="res://scenes/track_builds/island/island_05.tscn" id="5_b0sic"]
+[ext_resource type="PackedScene" uid="uid://bsvud1up0qk1j" path="res://scenes/track_builds/island/island_08.tscn" id="8_0im2d"]
+[ext_resource type="PackedScene" uid="uid://cl3ybm07j223v" path="res://scenes/track_builds/island/island_09.tscn" id="9_hn704"]
+[ext_resource type="PackedScene" uid="uid://c7wv4fsp430v" path="res://scenes/track_builds/island/island_12.tscn" id="12_kf70u"]
+[ext_resource type="PackedScene" uid="uid://b3kxthmanyvko" path="res://scenes/track_builds/island/island_13.tscn" id="13_73e27"]
+[ext_resource type="PackedScene" uid="uid://4ql53rh3onj3" path="res://scenes/track_builds/island/island_14.tscn" id="14_wmmju"]
+[ext_resource type="PackedScene" uid="uid://wicaf2iopbii" path="res://scenes/track_builds/island/island_15.tscn" id="15_oj25i"]
+[ext_resource type="PackedScene" uid="uid://c1xmpv323x04l" path="res://scenes/track_builds/island/island_16.tscn" id="16_4d3gq"]
 
 [node name="island_root" type="Node2D"]
 
-[node name="island_01" parent="." instance=ExtResource("1_22dyi")]
+[node name="island_01" parent="." instance=ExtResource("1_yyfnf")]
 
-[node name="island_02" parent="." instance=ExtResource("2_yh8yt")]
-position = Vector2(0, -1080)
-
-[node name="island_03" parent="." instance=ExtResource("3_r33nm")]
-position = Vector2(1920, -1080)
-
-[node name="island_04" parent="." instance=ExtResource("4_51r2e")]
+[node name="island_02" parent="." instance=ExtResource("2_cyede")]
 position = Vector2(1920, 0)
 
-[node name="Camera2D" parent="." instance=ExtResource("5_xsvad")]
+[node name="island_03" parent="." instance=ExtResource("3_2jbdj")]
+position = Vector2(3840, 0)
 
-[node name="Player1" parent="." instance=ExtResource("6_3kt6m")]
-position = Vector2(407, 282)
-rotation = -1.4207
+[node name="island_04" parent="." instance=ExtResource("4_oenvl")]
+position = Vector2(5760, 0)
+
+[node name="island_05" parent="." instance=ExtResource("5_b0sic")]
+position = Vector2(0, 1080)
+
+[node name="island_06" parent="." instance=ExtResource("1_22dyi")]
+position = Vector2(1920, 1080)
+
+[node name="island_07" parent="." instance=ExtResource("2_yh8yt")]
+position = Vector2(3840, 1080)
+
+[node name="island_08" parent="." instance=ExtResource("8_0im2d")]
+position = Vector2(5760, 1080)
+
+[node name="island_09" parent="." instance=ExtResource("9_hn704")]
+position = Vector2(0, 2160)
+
+[node name="island_10" parent="." instance=ExtResource("3_r33nm")]
+position = Vector2(1920, 2160)
+
+[node name="island_11" parent="." instance=ExtResource("4_51r2e")]
+position = Vector2(3840, 2160)
+
+[node name="island_12" parent="." instance=ExtResource("12_kf70u")]
+position = Vector2(5760, 2160)
+
+[node name="island_13" parent="." instance=ExtResource("13_73e27")]
+position = Vector2(0, 3240)
+
+[node name="island_14" parent="." instance=ExtResource("14_wmmju")]
+position = Vector2(1920, 3240)
+
+[node name="island_15" parent="." instance=ExtResource("15_oj25i")]
+position = Vector2(3840, 3240)
+
+[node name="island_16" parent="." instance=ExtResource("16_4d3gq")]
+position = Vector2(5760, 3240)

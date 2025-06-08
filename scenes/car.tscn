@@ -88,4 +88,4 @@ position = Vector2(-6.99995, 13)
 [node name="tire_br" type="Node2D" parent="Car"]
 position = Vector2(7.00005, 13)
 
-[node name="AudioStreamPlayer2D" parent="Car" instance=ExtResource("3_di6wo")]
+[node name="AudioStreamPlayer" parent="Car" instance=ExtResource("3_di6wo")]

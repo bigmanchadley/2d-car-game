@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://x8563xu6ctt0"]
 
 [ext_resource type="Script" path="res://scripts/manager.gd" id="1_psp4u"]
-[ext_resource type="Texture2D" uid="uid://naoov38akb7q" path="res://art/car_assets/yellowcar.png" id="2_4erug"]
+[ext_resource type="Texture2D" uid="uid://dseadhf6ygvtn" path="res://art/car_assets/yellowcar.png" id="2_4erug"]
 [ext_resource type="PackedScene" uid="uid://co7rt48d3pgb5" path="res://scenes/camera_2d.tscn" id="3_swa2y"]
 [ext_resource type="Texture2D" uid="uid://i32crd5pupp3" path="res://art/tracks/track_bl.png" id="4_8o3rt"]
 [ext_resource type="Texture2D" uid="uid://cqdccnhg7jq07" path="res://art/tracks/track_tl.png" id="5_23h3p"]
 [ext_resource type="Texture2D" uid="uid://b2haq01bb3oes" path="res://art/tracks/track_tr.png" id="6_hgab4"]
 [ext_resource type="Texture2D" uid="uid://ccx6umaa0pjfn" path="res://art/tracks/track_br.png" id="7_qg7f6"]
-[ext_resource type="Texture2D" uid="uid://m207qdfcfo3e" path="res://art/level_assets/finishline.png" id="8_ydwhd"]
+[ext_resource type="Texture2D" uid="uid://m207qdfcfo3e" path="res://art/level_assets/racing/finishline.png" id="8_ydwhd"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_psp4u")

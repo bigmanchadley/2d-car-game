@@ -7,20 +7,37 @@ script = ExtResource("1_vp5sq")
 
 [node name="main_menu_canvas" type="CanvasLayer" parent="."]
 
-[node name="GridContainer" type="GridContainer" parent="main_menu_canvas"]
-offset_left = 454.0
-offset_top = 415.0
-offset_right = 495.0
-offset_bottom = 481.0
+[node name="PanelContainer" type="PanelContainer" parent="main_menu_canvas"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -46.5
+offset_right = 44.0
+offset_bottom = 46.5
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="MainMenu" type="Label" parent="main_menu_canvas/GridContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="main_menu_canvas/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="main_menu_canvas/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MainMenu" type="Label" parent="main_menu_canvas/PanelContainer/MarginContainer/GridContainer"]
 layout_mode = 2
 text = "Main Menu"
 
-[node name="play_button" type="Button" parent="main_menu_canvas/GridContainer"]
+[node name="play_button" type="Button" parent="main_menu_canvas/PanelContainer/MarginContainer/GridContainer"]
 layout_mode = 2
 text = "Play"
 
-[node name="exit_button" type="Button" parent="main_menu_canvas/GridContainer"]
+[node name="exit_button" type="Button" parent="main_menu_canvas/PanelContainer/MarginContainer/GridContainer"]
 layout_mode = 2
 text = "Exit"

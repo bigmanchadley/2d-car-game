@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://ripqapsbd5kx"]
+
+[ext_resource type="Texture2D" uid="uid://s311y6s2u0oq" path="res://art/backgrounds/test_background.png" id="1_3yasv"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_3yasv")
+
+[node name="locations" type="Node" parent="."]
+
+[node name="player_locations" type="Node" parent="locations"]
+
+[node name="start_pos_1" type="Node2D" parent="locations/player_locations"]
+position = Vector2(631, 265)
+rotation = -1.76745
+
+[node name="start_pos_2" type="Node2D" parent="locations/player_locations"]
+position = Vector2(732, 240)
+rotation = -1.87768
+
+[node name="start_pos_3" type="Node2D" parent="locations/player_locations"]
+position = Vector2(835, 207)
+rotation = -1.86913
+
+[node name="checkpoint_locations" type="Node" parent="locations"]
+
+[node name="start_location" type="Node2D" parent="locations/checkpoint_locations"]
+position = Vector2(571, 281)
+rotation = -0.1339
+
+[node name="finish_location" type="Node2D" parent="locations/checkpoint_locations"]
+position = Vector2(571, 281)
+rotation = -0.133881
+
+[node name="checkpoint_1" type="Node2D" parent="locations/checkpoint_locations"]
+position = Vector2(0, -1372)
+
+[node name="checkpoint_2" type="Node2D" parent="locations/checkpoint_locations"]
+position = Vector2(2210, -567)
+rotation = 1.57494

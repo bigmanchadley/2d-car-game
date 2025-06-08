@@ -1,43 +1,29 @@
-[gd_scene load_steps=6 format=3 uid="uid://c43vsu0bgb1kv"]
+[gd_scene load_steps=6 format=3 uid="uid://b7eujp0glbpq2"]
 
-[ext_resource type="Texture2D" uid="uid://bdhlgi4naep6e" path="res://art/tracks/island/island_02/foreground.PNG" id="1_ncx6p"]
-[ext_resource type="Texture2D" uid="uid://p5pdrwyfsjpw" path="res://art/tracks/island/island_02/shadow.PNG" id="2_dxgpj"]
-[ext_resource type="Texture2D" uid="uid://dnjb6h8tf66h5" path="res://art/tracks/island/island_02/road.PNG" id="3_jdi7i"]
-[ext_resource type="Texture2D" uid="uid://cw2c65fu3dqe0" path="res://art/tracks/island/island_02/terrain.PNG" id="4_2hbgm"]
-[ext_resource type="Texture2D" uid="uid://5jwx7m2x8707" path="res://art/tracks/island/island_02/ocean.PNG" id="5_p75uk"]
+[ext_resource type="Texture2D" uid="uid://cydo5ewse6xhh" path="res://art/tracks/island/island_02/foreground_2.png" id="1_4ww1y"]
+[ext_resource type="Texture2D" uid="uid://bxcsjvw4bw4kf" path="res://art/tracks/island/island_02/shadow_2.png" id="2_u1rku"]
+[ext_resource type="Texture2D" uid="uid://ep4743lkjguy" path="res://art/tracks/island/island_02/road_2.png" id="3_yjmeo"]
+[ext_resource type="Texture2D" uid="uid://b0ilv76aa3c22" path="res://art/tracks/island/island_02/terrain_2.png" id="4_inx8d"]
+[ext_resource type="Texture2D" uid="uid://beabvh7scj07t" path="res://art/tracks/island/island_02/ocean_2.png" id="5_mgiu0"]
 
 [node name="island_02" type="Node2D"]
 z_index = 1
 
 [node name="foreground" type="Sprite2D" parent="."]
-visibility_layer = 2
 z_index = 4
-texture = ExtResource("1_ncx6p")
+texture = ExtResource("1_4ww1y")
 
 [node name="shadow" type="Sprite2D" parent="."]
 z_index = 3
-texture = ExtResource("2_dxgpj")
+texture = ExtResource("2_u1rku")
 
 [node name="road" type="Sprite2D" parent="."]
 z_index = 2
-texture = ExtResource("3_jdi7i")
+texture = ExtResource("3_yjmeo")
 
 [node name="terrain" type="Sprite2D" parent="."]
 z_index = 1
-texture = ExtResource("4_2hbgm")
+texture = ExtResource("4_inx8d")
 
 [node name="ocean" type="Sprite2D" parent="."]
-texture = ExtResource("5_p75uk")
-
-[node name="road_collision" type="Node2D" parent="."]
-visible = false
-
-[node name="inner_wall" type="StaticBody2D" parent="road_collision"]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="road_collision/inner_wall"]
-polygon = PackedVector2Array(-425, 540, -423, 487, -412, 448, -412, 400, -414, 359, -374, 299, -322, 257, -248, 220, -150, 169, -103, 130, -76, 98, -61, 63, -58, 44, -58, 19, -62, -4, -72, -30, -90, -65, -116, -96, -144, -121, -182, -144, -225, -159, -274, -164, -318, -160, -354, -148, -385, -133, -417, -109, -450, -83, -473, -57, -506, -21, -535, 0, -559, 12, -576, 18, -589, 20, -601, 19, -611, 17, -621, 11, -637, 0, -668, -20, -694, -41, -727, -82, -748, -127, -753.863, -147.521, -759, -170, -760, -192, -759, -216, -754, -245, -746, -268, -732, -296, -715, -322, -696, -340, -674, -353, -639, -366, -614, -373, -587, -377, -549, -376, -526, -374, -495, -368, -459, -357, -408, -339, -371, -328, -293, -296, -291, -300, -264, -289, -233, -280, -193, -271, -140, -260, -104, -254, -76, -252, -30, -249, -9, -249, 49, -253, 98, -258, 139, -266, 176, -278, 219, -293, 258, -310, 314, -333, 342, -342, 370, -349, 419, -355, 448, -358, 478, -357, 537, -336, 565, -323, 579, -315, 591, -307, 602, -295, 611, -284, 618, -272, 622, -260, 622, -250, 622, -239, 618, -225, 616, -217, 612, -209, 599, -198, 566, -179, 536, -162, 507, -139, 464, -104, 447, -85, 433, -65, 421, -43, 407, 1, 404, 13, 401, 44, 402, 75, 406, 111, 417, 143, 434, 175, 446, 190, 466, 207, 486, 219, 512, 230, 551, 243, 583, 253, 595, 255, 611, 255, 633, 251, 659, 248, 700, 251, 735, 253, 784, 251, 829, 244, 874, 236, 916, 229, 960, 226, 960, 540)
-
-[node name="outer_wall" type="StaticBody2D" parent="road_collision"]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="road_collision/outer_wall"]
-polygon = PackedVector2Array(-529, 540, -527, 505, -526, 483, -522, 459, -518, 448, -515, 441, -514, 410, -517, 384, -517, 360, -511, 329, -498, 294, -482, 269, -458, 243, -418, 206, -380, 178, -307, 138, -268, 115, -212, 90, -178, 66, -164, 53, -157, 43, -154, 34, -155, 25, -160, 9, -176, -18, -200, -42, -221, -55, -238, -62, -264, -66, -284, -66, -313, -60, -342, -45, -376, -20, -425, 37, -463, 79, -486, 99, -522, 120, -556, 132, -582, 136, -618, 135, -638, 128, -666, 117, -713, 86, -753, 47, -785, 7, -809, -31, -828, -65, -847, -113, -855, -145, -859, -176, -859, -215, -853, -255, -840, -302, -811, -358, -780, -398, -754, -421, -711, -445, -658, -464, -601, -475, -579, -476, -538, -476, -501, -471, -458, -461, -402, -442, -249, -384, -199, -368, -159, -357, -109, -348, -60, -343, 29, -342, 74, -346, 124, -356, 168, -372, 215, -394, 288, -426, 329, -439, 364, -446, 445, -455, 512, -453, 589, -437, 629, -421, 688, -388, 719, -363, 739, -342, 751, -318, 757, -293, 759, -266, 758, -239, 752, -212, 741, -185, 719, -154, 687, -123, 649, -98, 586, -64, 564, -48, 544, -28, 532, -10, 522, 10, 517, 24, 514, 38, 515, 53, 518, 67, 525, 84, 534, 99, 550, 116, 577, 134, 601, 143, 631, 149, 673, 153, 724, 157, 756, 157, 795, 153, 840, 145, 890, 135, 931, 132, 960, 129, 960, -540, -960, -540, -960, 540)
+texture = ExtResource("5_mgiu0")

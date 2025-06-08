@@ -1,52 +1,42 @@
-[gd_scene load_steps=5 format=3 uid="uid://dyvrfj1pasln0"]
+[gd_scene load_steps=3 format=3 uid="uid://dyvrfj1pasln0"]
 
-[ext_resource type="PackedScene" uid="uid://chdcx8vkx07in" path="res://scenes/track_builds/island/island_01.tscn" id="1_3f5xo"]
-[ext_resource type="PackedScene" uid="uid://c43vsu0bgb1kv" path="res://scenes/track_builds/island/island_02.tscn" id="2_p3ad4"]
-[ext_resource type="PackedScene" uid="uid://snn74yr7dtrl" path="res://scenes/track_builds/island/island_03.tscn" id="3_loq0u"]
-[ext_resource type="PackedScene" uid="uid://dhydxlay35x21" path="res://scenes/track_builds/island/island_04.tscn" id="4_s4ks5"]
+[ext_resource type="PackedScene" uid="uid://0as8m75vcrcr" path="res://scenes/track_builds/island/island_root.tscn" id="1_6ns65"]
+[ext_resource type="Script" path="res://scripts/level_scripts/island_forward.gd" id="1_xkeq4"]
 
-[node name="island_root" type="Node2D"]
+[node name="island_forward" type="Node2D"]
+script = ExtResource("1_xkeq4")
 
-[node name="island_01" parent="." instance=ExtResource("1_3f5xo")]
+[node name="island_root" parent="." instance=ExtResource("1_6ns65")]
 
-[node name="island_02" parent="." instance=ExtResource("2_p3ad4")]
-position = Vector2(0, -1080)
+[node name="locations" type="Node" parent="island_root"]
 
-[node name="island_03" parent="." instance=ExtResource("3_loq0u")]
-position = Vector2(1920, -1080)
+[node name="player_locations" type="Node" parent="island_root/locations"]
 
-[node name="island_04" parent="." instance=ExtResource("4_s4ks5")]
-position = Vector2(1920, 0)
-
-[node name="locations" type="Node" parent="."]
-
-[node name="player_locations" type="Node" parent="locations"]
-
-[node name="start_pos_1" type="Node2D" parent="locations/player_locations"]
-position = Vector2(631, 265)
+[node name="start_pos_1" type="Node2D" parent="island_root/locations/player_locations"]
+position = Vector2(2649, 2418)
 rotation = -1.76745
 
-[node name="start_pos_2" type="Node2D" parent="locations/player_locations"]
-position = Vector2(732, 240)
+[node name="start_pos_2" type="Node2D" parent="island_root/locations/player_locations"]
+position = Vector2(2726, 2387)
 rotation = -1.87768
 
-[node name="start_pos_3" type="Node2D" parent="locations/player_locations"]
-position = Vector2(835, 207)
+[node name="start_pos_3" type="Node2D" parent="island_root/locations/player_locations"]
+position = Vector2(2804, 2352)
 rotation = -1.86913
 
-[node name="checkpoint_locations" type="Node" parent="locations"]
+[node name="checkpoint_locations" type="Node" parent="island_root/locations"]
 
-[node name="start_location" type="Node2D" parent="locations/checkpoint_locations"]
-position = Vector2(571, 281)
+[node name="start_location" type="Node2D" parent="island_root/locations/checkpoint_locations"]
+position = Vector2(2563, 2427)
 rotation = -0.1339
 
-[node name="finish_location" type="Node2D" parent="locations/checkpoint_locations"]
-position = Vector2(571, 281)
+[node name="finish_location" type="Node2D" parent="island_root/locations/checkpoint_locations"]
+position = Vector2(2602, 2422)
 rotation = -0.133881
 
-[node name="checkpoint_1" type="Node2D" parent="locations/checkpoint_locations"]
-position = Vector2(0, -1372)
+[node name="checkpoint_1" type="Node2D" parent="island_root/locations/checkpoint_locations"]
+position = Vector2(1773, 772)
 
-[node name="checkpoint_2" type="Node2D" parent="locations/checkpoint_locations"]
-position = Vector2(2210, -567)
+[node name="checkpoint_2" type="Node2D" parent="island_root/locations/checkpoint_locations"]
+position = Vector2(4611, 1158)
 rotation = 1.57494

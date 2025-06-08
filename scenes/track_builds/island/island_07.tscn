@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://c43vsu0bgb1kv"]
+
+[ext_resource type="Texture2D" uid="uid://clbdx18sjqnu2" path="res://art/tracks/island/island_07/foreground_7.png" id="1_fktck"]
+[ext_resource type="Texture2D" uid="uid://bx2dg4pf1m73f" path="res://art/tracks/island/island_07/shadow_7.png" id="2_q5fum"]
+[ext_resource type="Texture2D" uid="uid://ciy5aafiwtd55" path="res://art/tracks/island/island_07/road_7.png" id="3_n61ew"]
+[ext_resource type="Texture2D" uid="uid://bv8omgrwoxkd3" path="res://art/tracks/island/island_07/terrain_7.png" id="4_2ttb6"]
+[ext_resource type="Texture2D" uid="uid://bgc2rhbbaf51d" path="res://art/tracks/island/island_07/ocean_7.png" id="5_id0ky"]
+
+[node name="island_07" type="Node2D"]
+z_index = 1
+
+[node name="foreground" type="Sprite2D" parent="."]
+visibility_layer = 2
+z_index = 4
+texture = ExtResource("1_fktck")
+
+[node name="shadow" type="Sprite2D" parent="."]
+z_index = 3
+texture = ExtResource("2_q5fum")
+
+[node name="road" type="Sprite2D" parent="."]
+z_index = 2
+texture = ExtResource("3_n61ew")
+
+[node name="terrain" type="Sprite2D" parent="."]
+z_index = 1
+texture = ExtResource("4_2ttb6")
+
+[node name="ocean" type="Sprite2D" parent="."]
+texture = ExtResource("5_id0ky")
+
+[node name="road_collision" type="Node2D" parent="."]
+visible = false
+
+[node name="inner_wall" type="StaticBody2D" parent="road_collision"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="road_collision/inner_wall"]
+polygon = PackedVector2Array(-960, 227, -928, 226, -870, 232, -844, 233, -807, 228, -763, 215, -703, 197, -619, 186, -557, 190, -486, 212, -403, 247, -357, 272, -301, 298, -264, 309, -229, 313, -198, 313, -162, 310, -124, 302, -89, 291, -60, 277, -30, 255, 6, 221, 29, 189, 50, 153, 65, 108, 71, 68, 69, 19, 67, -39, 67, -85, 76, -137, 87, -172, 104, -205, 129, -239, 166, -273, 202, -295, 279, -325, 320, -331, 350, -332, 397, -327, 464, -314, 512, -300, 547, -286, 586, -264, 618, -240, 642, -215, 661, -189, 686, -140, 701, -97, 714, -46, 722, 7, 724, 47, 721, 90, 710, 131, 693, 169, 677, 193, 656, 217, 624, 238, 595, 249, 553, 255, 522, 258, 470, 263, 431, 267, 393, 274, 351, 285, 323, 298, 301, 312, 282, 330, 263, 354, 252, 375, 245, 401, 242, 420, 242, 438, 242, 467, 241, 491, 241, 540, -960, 540)
+
+[node name="outer_wall" type="StaticBody2D" parent="road_collision"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="road_collision/outer_wall"]
+polygon = PackedVector2Array(-960, 128, -933, 128, -905, 131, -874, 134, -851, 135, -835, 134, -809, 127, -739, 106, -695, 96, -647, 88, -616, 85, -579, 86, -533, 93, -479, 109, -429, 126, -360, 156, -280, 199, -250, 211, -224, 215, -196, 215, -170, 213, -127, 202, -110, 193, -92, 180, -76, 165, -55, 138, -43, 118, -37, 103, -31, 72, -31, 29, -34, -25, -33, -83, -22, -151, -12, -193, 3, -229, 20, -258, 47, -296, 82, -331, 119, -361, 169, -389, 218, -408, 257, -421, 304, -429, 339, -432, 371, -431, 405, -428, 445, -421, 500, -409, 550, -394, 582, -382, 620, -361, 653, -340, 691, -310, 722, -277, 749, -238, 767, -203, 779, -176, 792, -143, 803, -104, 809, -78, 815, -46, 820, -14, 823, 21, 824, 45, 822, 91, 816, 126, 807, 159, 787, 210, 767, 243, 748, 267, 725, 290, 697, 311, 658, 332, 614, 347, 578, 354, 538, 358, 463, 359, 430, 364, 387, 374, 368, 383, 354, 394, 346, 404, 340, 416, 337, 432, 337, 446, 339, 466, 340, 513, 341, 540, 960, 540, 960, -540, -960, -540)

@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://drn8fgekrm3s7"]
+
+[ext_resource type="Texture2D" uid="uid://dunpti2a8n0lh" path="res://art/tracks/island/island_05/ocean_5.png" id="1_keair"]
+
+[node name="island_05" type="Node2D"]
+z_index = 1
+
+[node name="foreground" type="Sprite2D" parent="."]
+z_index = 4
+
+[node name="shadow" type="Sprite2D" parent="."]
+z_index = 4
+
+[node name="road" type="Sprite2D" parent="."]
+z_index = 2
+
+[node name="terrain" type="Sprite2D" parent="."]
+z_index = 1
+
+[node name="ocean" type="Sprite2D" parent="."]
+texture = ExtResource("1_keair")

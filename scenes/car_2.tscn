@@ -1,0 +1,87 @@
+[gd_scene load_steps=7 format=3 uid="uid://c0t06078ufu4u"]
+
+[ext_resource type="Texture2D" uid="uid://vg0m7wsm0qxl" path="res://art/car_assets/track_gradient.tres" id="1_s43mm"]
+[ext_resource type="Script" path="res://scripts/tire_tracks.gd" id="2_bq68k"]
+[ext_resource type="Script" path="res://scripts/car_script_2.gd" id="3_l5211"]
+[ext_resource type="Texture2D" uid="uid://bhdsg48mgw5lb" path="res://art/car_assets/redcar.png" id="4_u1475"]
+[ext_resource type="PackedScene" uid="uid://bl51jqn6p6miy" path="res://scenes/engine_sound.tscn" id="5_y01rt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_imhki"]
+size = Vector2(16, 34)
+
+[node name="Player1" type="Node2D"]
+z_index = 1
+position = Vector2(180, 232)
+rotation = 1.5708
+
+[node name="Line2D_br" type="Line2D" parent="."]
+z_index = 2
+position = Vector2(8, 13)
+points = PackedVector2Array(0, 0)
+width = 4.0
+texture = ExtResource("1_s43mm")
+texture_mode = 2
+antialiased = true
+script = ExtResource("2_bq68k")
+tire_path = NodePath("../Car/tire_br")
+
+[node name="Line2D_bl" type="Line2D" parent="."]
+z_index = 2
+position = Vector2(8, 13)
+points = PackedVector2Array(0, 0)
+width = 4.0
+texture = ExtResource("1_s43mm")
+texture_mode = 2
+antialiased = true
+script = ExtResource("2_bq68k")
+tire_path = NodePath("../Car/tire_bl")
+
+[node name="Line2D_fl" type="Line2D" parent="."]
+z_index = 2
+position = Vector2(8, 13)
+points = PackedVector2Array(0, 0)
+width = 4.0
+texture = ExtResource("1_s43mm")
+texture_mode = 2
+antialiased = true
+script = ExtResource("2_bq68k")
+tire_path = NodePath("../Car/tire_fl")
+
+[node name="Line2D_fr" type="Line2D" parent="."]
+z_index = 2
+position = Vector2(8, 13)
+points = PackedVector2Array(0, 0)
+width = 4.0
+texture = ExtResource("1_s43mm")
+texture_mode = 2
+antialiased = true
+script = ExtResource("2_bq68k")
+tire_path = NodePath("../Car/tire_fr")
+
+[node name="Car" type="CharacterBody2D" parent="." groups=["cars"]]
+collision_layer = 2
+script = ExtResource("3_l5211")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Car"]
+shape = SubResource("RectangleShape2D_imhki")
+
+[node name="Sprite2D" type="Sprite2D" parent="Car"]
+z_index = 2
+texture_filter = 2
+texture_repeat = 1
+texture = ExtResource("4_u1475")
+hframes = 3
+
+[node name="tire_fl" type="Node2D" parent="Car"]
+position = Vector2(-7.00004, -9.99998)
+
+[node name="tire_fr" type="Node2D" parent="Car"]
+position = Vector2(6.99996, -10)
+
+[node name="tire_bl" type="Node2D" parent="Car"]
+position = Vector2(-6.99995, 13)
+
+[node name="tire_br" type="Node2D" parent="Car"]
+position = Vector2(7.00005, 13)
+
+[node name="AudioStreamPlayer2D" parent="Car" instance=ExtResource("5_y01rt")]

@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://nsl1wge56ik8"]
 
 [ext_resource type="Script" path="res://scripts/manager.gd" id="1_thy2q"]
-[ext_resource type="Texture2D" uid="uid://b4xuo5gfy0v0h" path="res://art/level_assets/track_background_white.png" id="2_lvosy"]
+[ext_resource type="Texture2D" uid="uid://b4xuo5gfy0v0h" path="res://art/backgrounds/track_background_white.png" id="2_lvosy"]
 [ext_resource type="PackedScene" uid="uid://co7rt48d3pgb5" path="res://scenes/camera_2d.tscn" id="3_ae52s"]
 [ext_resource type="PackedScene" uid="uid://e6cbta467dna" path="res://scenes/kerb_pair.tscn" id="4_d4j1b"]
-[ext_resource type="Texture2D" uid="uid://m207qdfcfo3e" path="res://art/level_assets/finishline.png" id="6_5166p"]
+[ext_resource type="Texture2D" uid="uid://m207qdfcfo3e" path="res://art/level_assets/racing/finishline.png" id="6_5166p"]
 [ext_resource type="Texture2D" uid="uid://dseadhf6ygvtn" path="res://art/car_assets/yellowcar.png" id="7_qij7g"]
 
 [node name="Node2D" type="Node2D"]

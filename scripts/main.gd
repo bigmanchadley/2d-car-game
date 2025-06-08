@@ -1,7 +1,7 @@
 extends Node2D
 
 # Background Image
-const BACKGROUND = preload("res://art/level_assets/test_background.png")
+const BACKGROUND = preload("res://art/backgrounds/island_full.png")
 
 # Scenes
 	# Manager
@@ -17,7 +17,7 @@ var background
 # Manager
 var manager
 # Camera
-var camera_1
+var camera_menu
 # Main Menu
 var main_menu
 var main_menu_canvas
@@ -27,10 +27,11 @@ var level_menu_canvas
 
 # Variables
 var player_count = 1
+#var selected_level = preload("res://scenes/tracks/island_forward.tscn")
 var selected_level = preload("res://scenes/tracks/island_forward.tscn")
 var p1_car_choice
 var p2_car_choice
-var p3_car_choice
+# var p3_car_choice
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -38,28 +39,26 @@ func _ready():
 	background = Sprite2D.new()
 	background.texture = BACKGROUND
 	add_child(background)
-	# Load the Camera
-	#camera_1 = CAMERA.instantiate()
-	#add_child(camera_1)
-
+	# Camera
+	menu_camera()
 	# Instantiate all UI, then manage visibility via signal
 	main_menu = MAIN_MENU.instantiate()
-	main_menu.visible = true
 	main_menu.play_requested.connect(play_requested)
 	main_menu.exit_requested.connect(exit_requested)
 	main_menu_canvas = main_menu.get_node("main_menu_canvas")
+	main_menu_canvas.visible = true
 	add_child(main_menu)
 
 	level_menu = LEVEL_MENU.instantiate()
-	level_menu.visible = false
 	level_menu_canvas = level_menu.get_node("level_menu_canvas")
+	level_menu_canvas.visible = false
 	level_menu.level_menu_back_requested.connect(load_main_menu)
 	level_menu.level_button_requested.connect(set_selected_level)
 	level_menu.set_player_count.connect(set_player_count)
 	level_menu.start_button_requested.connect(start_race_requested)
 	level_menu.set_p1_car.connect(set_p1_car)
 	level_menu.set_p2_car.connect(set_p2_car)
-	level_menu.set_p3_car.connect(set_p3_car)
+	# level_menu.set_p3_car.connect(set_p3_car)
 	add_child(level_menu)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -76,6 +75,10 @@ func set_selected_level():
 func get_selected_level():
 	return selected_level
 
+func menu_camera():
+	camera_menu = CAMERA.instantiate()
+	camera_menu.zoom = Vector2(0.5, 0.5)
+	add_child(camera_menu)
 
 # Main Menu ########################################################
 func play_requested():
@@ -83,7 +86,7 @@ func play_requested():
 
 func exit_requested():
 	get_tree().quit()
-	
+
 
 ####################################################################
 
@@ -104,10 +107,10 @@ func set_p2_car(texture):
 	p2_car_choice = texture
 func get_p2_car():
 	return p2_car_choice
-func set_p3_car(texture):
-	p3_car_choice = texture
-func get_p3_car():
-	return p3_car_choice
+# func set_p3_car(texture):
+# 	p3_car_choice = texture
+# func get_p3_car():
+# 	return p3_car_choice
 
 
 func start_race_requested():
@@ -117,7 +120,7 @@ func start_race_requested():
 	# Level selected
 
 	# For now just start the game with the island level
-
+	camera_menu.queue_free()
 	main_menu_canvas.visible = false
 	level_menu_canvas.visible = false
 	manager = MANAGER.instantiate()
@@ -125,7 +128,7 @@ func start_race_requested():
 	manager.level = get_selected_level()
 	manager.p1_sprite_choice = get_p1_car()
 	manager.p2_sprite_choice = get_p2_car()
-	manager.p3_sprite_choice = get_p3_car()
+	# manager.p3_sprite_choice = get_p3_car()
 	manager.exit_race_button_requested.connect(exit_race_requested)
 	add_child(manager)
 
@@ -134,6 +137,7 @@ func exit_race_requested():
 	print_debug("all the way to main exittt")
 	manager.queue_free()
 	load_main_menu()
+	menu_camera()
 	pass
 
 # Method

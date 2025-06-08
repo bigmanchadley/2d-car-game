@@ -9,6 +9,7 @@ extends CharacterBody2D
 ##### Constants #####
 const MAX_SPEED = 300
 const POWER = 300
+const TRACTION = 30
 
 
 @export var rot_const = 4
@@ -38,10 +39,12 @@ var is_reversing: bool
 # _ready
 var force_addition: Vector2
 var is_accelerating: bool 
-var traction: float
+var grip: float
 var rot_momentum: float
 var medial_vel: Vector2
 var lateral_vel: Vector2
+var t_l: float
+var t_r: float
 
 
 ###################################### START MAIN ############################################
@@ -60,11 +63,13 @@ func _ready():
 	force_addition = Vector2.ZERO
 	is_accelerating = false
 	is_reversing = false
-	traction = 1.0
+	grip = 1.0
 	rot_momentum = 0.0
 	medial_vel = Vector2(0,0)
 	lateral_vel = Vector2(0,0)
 	prev_gear = gear
+	t_l = 0.0
+	t_r = 0.0
 ####################################### END MAIN ###############################################
 ####################################### DEBUGGER ###############################################
 
@@ -140,16 +145,19 @@ func player_input(delta):
 
 
 	if Input.is_action_pressed(input_left):
-		turn_left = Vector2.LEFT.rotated(global_rotation)
+		t_l = min(t_l + delta, 1.0)
+		turn_left = Vector2.LEFT.rotated(global_rotation) * t_l
 		is_turning_left = true
 	else:
+		t_l = 0.0
 		turn_left = Vector2(0,0)
 		is_turning_left = false
-		
 	if Input.is_action_pressed(input_right):
-		turn_right = Vector2.RIGHT.rotated(global_rotation)
+		t_r = min(t_r + delta, 1.0)
+		turn_right = Vector2.RIGHT.rotated(global_rotation) * t_r
 		is_turning_right = true
 	else:
+		t_r = 0.0
 		turn_right = Vector2(0,0)
 		is_turning_right = false
 
@@ -173,7 +181,7 @@ func player_input(delta):
 
 #################################################################################################
 func acceleration(delta):
-	force_addition = (accel_dir * torque * traction * delta) * brake_friction
+	force_addition = (accel_dir * torque * grip * delta) * brake_friction
 	if force_addition != Vector2(0,0):
 		is_accelerating = true
 	else:
@@ -230,7 +238,9 @@ func steering(delta):
 	# Velocities ################################################################
 	lateral_vel *= lateral_friction
 	medial_vel *= medial_friction
-	velocity = (lateral_vel) + (medial_vel) + force_addition
+	var new_velocity
+	
+	new_velocity = (lateral_vel) + (medial_vel) + force_addition
 	#############################################################################
 	# Angular Friction ##########################################################
 	var speed_ratio = clamp(velocity.length() / 100, 0.0, 1.0)
@@ -239,51 +249,77 @@ func steering(delta):
 		abs_alignment = 1
 		# More angular friction at low speed - May need to change but certainly works as a bandaid
 	var rot_momentum_weight = clamp(abs(rot_momentum) / 2.0, 0.0, 1.0)
-	#print_debug("rot_momentum_weight:	", rot_momentum_weight)
-	var alignment_weight = pow(abs_alignment, 2.0)
 	var angular_friction = lerp(0.1, 0.99, speed_ratio * rot_momentum_weight)
-	#print_debug("angular_friction: ", angular_friction)
-	#print_debug("abs_alignment:	", abs_alignment)
-	#print_debug("weight_af:	", speed_ratio * (1.0 - abs_alignment))
-	#print_debug("angular_friction:	", angular_friction)
 	#############################################################################
 	# Alignment Force ###########################################################
-	traction = lerp(0.5, 1.0, abs_alignment)
-	var aligning_force = traction * -misalignment
+	grip = lerp(0.5, 1.0, abs_alignment)
+	var aligning_force = grip * -misalignment
 	#print_debug("align_force:	", aligning_force)
 	#############################################################################
 	# Rotation Momentum #########################################################
-		# Relative torque is torque relative to either medial or current velocity
-		# rot_torque increases: alignment
-		# rot_torque decreases: as velocity increases
-	# ROTATION TORQUE NEEDS TUNING!!!
-	var rot_traction = traction * clamp(vel_mag/200, 0.0, 1.0)
-
+	var rot_traction = grip * clamp(vel_mag/200, 0.0, 1.0)
 	var torque_factor = clamp(torque / 100, 0.0, 1.0)
 	var velocity_factor = clamp(vel_mag / MAX_SPEED, 0.0, 1.0)
 	var rot_torque = lerp(0.0, 3.0, velocity_factor  * torque_factor * abs_alignment * int(is_accelerating))
-	#print_debug("rot_torque:	", rot_torque)
-	#print_debug("abs_alignment:	", abs_alignment)
-
-	# var rot_const = 3 : globally exported
 	var rot_input = (rot_const + rot_torque) * rot_traction * rot_dir
-	#print_debug("rot_input:	", rot_input)
-		# Replace the 4 with a rot_speed or rot torque. Consider variability vs constant
-		# May want rot_speed to be a value that increases with velocity? Or torque or sudden change in velocity?
-		# rot_dir = User Input: -1, 0, or 1
+
 	rot_momentum += (aligning_force + rot_input) * delta
 	rot_momentum *= pow(angular_friction, delta)
-	#print_debug("af_delta_time:	", pow(angular_friction, delta))
 	rot_momentum = clamp(rot_momentum, -6, 6)
-	#print_debug("rot_momentum:	", rot_momentum)
+	
+	var new_rotation = rot_momentum * delta
+	
 	#############################################################################
 	# Rotation ##################################################################
-	rotation += rot_momentum * delta #* (medial_mag / 150)
+	velocity = new_velocity
+	rotation += new_rotation #* (medial_mag / 150)
 
 	#############################################################################
+#################################################################################
+
+
+
+# Issue: Car always gathering and applying rotational momentum to rotation
+# Possible Fixes:
+	# 1: Rotational momentum does not apply until it is above a certain value
+		# Doesn't work, because you are still gathering rotational momentum and will suddenly spin like a top when value is reached
+	# 2: Car does not generate rotational momentum until a separate value is reached
+		# Might affec
+
+# Case Study:
+	# Car is driving fast. Car swerves left, begins drifting with rotational momentum.
+		# Car then swerves right, to the same degree it did to the left
+		# At some point the car was aligned in the direction of velocity. However, that doesn't make it snap to no momentum and drive "normally"
+		# So the rotational momentum is preserved as long as multiple factors are met
+		# Factors:
+			# Traction
+			# Change in rotation
+			# Velocity
+			# Cornering Force
+
+			# Assume turning left and right is variable determined by length of keypress to a maximum
+			# The degree of steering gives the turning radius, up to a maximum
+			# Flow:
+				# Car has no velocity, car wheels turn left or right, nothing happens
+				# Car has a velocity, car wheels turn left or right, something happens
+					# The turning radius * velocity = rotation
+					# The change in rotation
+
+
+
+			# Traction: Constant -> Overcome by Centrifugal Force (and/or Rotational Momentum?)
+			# Centrifugal: Variable -> Generated by Velocity relative to Steer Degree?
+			# Rotational M: Variable -> Generated by Change-in-Rotation relative to Change-in-Velocity?
+			
+
+		# Traction (constant)(vector)
+			# overcome by Rotational momentum?
+
+
+
+		# input rotdir range -1 to 1
 
 
 
 
-
-#################################################################################################
+		# new rotation = rotational momentum and  
