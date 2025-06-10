@@ -24,6 +24,7 @@ window/snap/snap_2d_transforms_to_pixel=false
 [global_group]
 
 cars=""
+checkpoint=""
 
 [input]
 

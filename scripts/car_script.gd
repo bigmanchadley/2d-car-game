@@ -6,6 +6,9 @@ extends CharacterBody2D
 @export var input_left: String
 @export var input_right: String
 
+# ID - Set by manager
+var player_id
+
 ##### Constants #####
 const MAX_SPEED = 300
 const POWER = 300

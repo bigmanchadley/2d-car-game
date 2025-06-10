@@ -112,6 +112,7 @@ func spawn_players(p_node):
 		var p1_car = p1.get_node("Car")
 		var p1_sprite = p1_car.get_node("Sprite2D")
 		p1_sprite.texture = p1_sprite_choice
+		p1_car.player_id = 1
 		p1_car.input_up = "P1_Forward"
 		p1_car.input_down = "P1_Backward"
 		p1_car.input_left = "P1_Left"
@@ -126,6 +127,7 @@ func spawn_players(p_node):
 		var p2_car = p2.get_node("Car")
 		var p2_sprite = p2_car.get_node("Sprite2D")
 		p2_sprite.texture = p2_sprite_choice
+		p2_car.player_id = 2
 		p2_car.input_up = "P2_Forward"
 		p2_car.input_down = "P2_Backward"
 		p2_car.input_left = "P2_Left"
