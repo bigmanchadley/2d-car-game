@@ -10,6 +10,9 @@ const COUNTDOWN_SCENE = preload("res://scenes/countdown.tscn")
 const STOPWATCH_SCENE = preload("res://scenes/stopwatch.tscn")
 const CAMERA_SCENE = preload("res://scenes/camera_2d.tscn")
 const INGAME_MENU = preload("res://scenes/ingame_menu.tscn")
+const PLAYER_HUD = preload("res://scenes/player_hud.tscn")
+const POSTRACE_MENU = preload("res://scenes/postrace_menu.tscn")
+
 # level scenes
 var level # Path to selected level scene
 var track # Instance of level
@@ -45,9 +48,12 @@ var starting_position_1
 var starting_position_2
 var starting_position_3
 
-# In game manu
+# In game menu
 var igm
 var igm_canvas
+
+# postgame menu
+var pr_menu
 
 # Derived from main.gd. Assigned at instantiation
 var player_count
@@ -55,6 +61,7 @@ var player_count
 func _ready():
 	setup()
 	create_ingame_menu()
+	start_countdown()
 	#spawn_level()
 	#set_start_locations()
 	#spawn_players()
@@ -94,7 +101,6 @@ func start_countdown():
 		countdown.queue_free()
 		countdown = null
 	countdown = COUNTDOWN_SCENE.instantiate()
-	countdown.position = $locations/countdown_location.position
 	add_child(countdown)
 
 func start_laps():
@@ -142,6 +148,7 @@ func spawn_camera(p_node):
 
 func spawn_level(p_node):
 	track = level.instantiate()
+	track.race_completed.connect(race_completed)
 	p_node.add_child(track)
 
 func set_start_locations():
@@ -165,6 +172,7 @@ func setup():
 	sv_container.add_child(sv)
 	var size_y = 1080/player_count
 	sv.size = Vector2(1920, size_y)
+
 	
 
 
@@ -173,6 +181,9 @@ func setup():
 	set_start_locations()
 	spawn_players(sv)
 	spawn_camera(sv)
+	var p1_hud = PLAYER_HUD.instantiate()
+	p1_hud.player_id_matcher = 1
+	sv.add_child(p1_hud)
 
 	var p1_sv_world = sv.world_2d
 	# For each player other than 1
@@ -183,11 +194,15 @@ func setup():
 		sv_container.name = "SubViewportContainer" + affix
 		sv.name = "SubViewport" + affix
 		sv.world_2d = p1_sv_world
-
 		v_container.add_child(sv_container)
 		sv_container.add_child(sv)
 		sv.size = Vector2(1920, 540)
+
+		var p2_hud = PLAYER_HUD.instantiate()
+		p2_hud.player_id_matcher = 2
+		sv.add_child(p2_hud)
 		spawn_camera(sv)
+
 
 	
 	# Add a Remote transform to each player/car node
@@ -213,4 +228,17 @@ func setup():
 		var remote_transform := RemoteTransform2D.new()
 		remote_transform.remote_path = players[i].camera.get_path()
 		players[i].player.add_child(remote_transform)
+
+
+
+func race_completed(result):
+	pr_menu = POSTRACE_MENU.instantiate()
+	pr_menu.result = result
+	pr_menu.to_main_menu_request.connect(exit_race_button)
+	add_child(pr_menu)
+
+	# Create the postrace_menu
+	# Give it the result
+	# Add the child postrace_menu to the scene, make it visible
+	# Decide if the game track queue frees now, or after the player hit the back to menu button in postrace_menu
 

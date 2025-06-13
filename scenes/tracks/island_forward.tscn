@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c8x1v0xsvvmpx" path="res://scenes/timing_line.tscn" id="3_lj8q6"]
 [ext_resource type="PackedScene" uid="uid://dqs6h8a74uv62" path="res://scenes/checkpoint.tscn" id="4_5q2hv"]
 
-[node name="island_forward" type="Node2D"]
+[node name="island_forward" type="Node2D" groups=["track"]]
 script = ExtResource("1_81iqf")
 
 [node name="island_root" parent="." instance=ExtResource("1_6ns65")]

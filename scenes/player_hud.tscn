@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3 uid="uid://budakqvqirg7b"]
+
+[ext_resource type="Script" path="res://scripts/player_HUD.gd" id="1_6mc6r"]
+
+[node name="player_HUD" type="Node2D" groups=["playerHUD"]]
+z_index = 15
+script = ExtResource("1_6mc6r")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+offset_right = 83.0
+offset_bottom = 70.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/PanelContainer/MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Lap"
+
+[node name="laps" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "1/2"
+horizontal_alignment = 2
+
+[node name="pace" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "00.00"
+horizontal_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Best"
+
+[node name="bestlap" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "N/A"

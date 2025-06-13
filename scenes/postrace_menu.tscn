@@ -1,0 +1,85 @@
+[gd_scene load_steps=2 format=3 uid="uid://yvdtynsre8pc"]
+
+[ext_resource type="Script" path="res://scripts/postrace_menu.gd" id="1_n5bqq"]
+
+[node name="postrace_menu" type="Node2D"]
+script = ExtResource("1_n5bqq")
+
+[node name="postrace_menu_canvas" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="postrace_menu_canvas"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -197.5
+offset_top = -21.5
+offset_right = 197.5
+offset_bottom = 21.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="postrace_menu_canvas/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="postrace_menu_canvas/PanelContainer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="postrace_menu_canvas/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="VBoxContainer_names" type="VBoxContainer" parent="postrace_menu_canvas/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label_name" type="Label" parent="postrace_menu_canvas/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer_names"]
+layout_mode = 2
+text = "name"
+
+[node name="VBoxContainer_placement" type="VBoxContainer" parent="postrace_menu_canvas/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label_placement" type="Label" parent="postrace_menu_canvas/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer_placement"]
+layout_mode = 2
+text = "placement"
+
+[node name="VBoxContainer_totaltime" type="VBoxContainer" parent="postrace_menu_canvas/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label_totaltime" type="Label" parent="postrace_menu_canvas/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer_totaltime"]
+layout_mode = 2
+text = "totaltime"
+
+[node name="VBoxContainer_bestlap" type="VBoxContainer" parent="postrace_menu_canvas/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label_bestlap" type="Label" parent="postrace_menu_canvas/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer_bestlap"]
+layout_mode = 2
+text = "bestlap"
+
+[node name="MarginContainer" type="MarginContainer" parent="postrace_menu_canvas"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -197.5
+offset_top = -130.5
+offset_right = 197.5
+offset_bottom = 130.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 200
+
+[node name="PanelContainer2" type="PanelContainer" parent="postrace_menu_canvas/MarginContainer"]
+layout_mode = 2
+
+[node name="to_main_menu_button" type="Button" parent="postrace_menu_canvas/MarginContainer/PanelContainer2"]
+layout_mode = 2
+text = "Main Menu"

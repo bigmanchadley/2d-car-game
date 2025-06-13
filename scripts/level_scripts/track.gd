@@ -1,9 +1,11 @@
 extends Node2D
 
+signal update_hud(player_id, current_lap)
+signal race_completed(result)
 
 
 
-var total_laps = 2 # This will be determined at instantation in the manager, as determined by player selection in the level_menu
+var total_laps = 1 # This will be determined at instantation in the manager, as determined by player selection in the level_menu
 var p1_current_lap
 var p2_current_lap
 
@@ -17,11 +19,23 @@ func _ready():
 func handle_lap(player_id):
 	if player_id == 1:
 		p1_current_lap += 1
+		emit_signal("update_hud", player_id, p1_current_lap)
 	if player_id == 2:
 		p2_current_lap += 1
+		emit_signal("update_hud", player_id, p2_current_lap)
 
 	if p1_current_lap > total_laps or p2_current_lap > total_laps:
-		print_debug("Player ", player_id, " wins!")
+		get_result()
+
+func get_result():
+	var result = {}
+	for playerhud in get_tree().get_nodes_in_group("playerHUD"):
+		result[playerhud] = {
+			"player_id": playerhud.player_id_matcher,
+			"total_time": playerhud.total_time,
+			"bestlap": playerhud.bestlap
+		}	
+	emit_signal("race_completed", result)
 
 
 
@@ -29,15 +43,11 @@ func handle_lap(player_id):
 
 
 
-
-
-# Ready
-	# Count Number of Checkpoints - Give to timing-line
-
-
-# From Parent/outside
-	# Receive number of laps selected by player in Level Menu
-	# Receive number of players
+# Track script
+	# Receives
+		# Calculated laps from received player ID
+	# Updates
+		# sends laps to player HUDs
 
 
 

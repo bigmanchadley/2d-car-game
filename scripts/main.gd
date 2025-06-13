@@ -138,7 +138,6 @@ func exit_race_requested():
 	manager.queue_free()
 	load_main_menu()
 	menu_camera()
-	pass
 
 # Method
 # All menu scenes are loaded at launch
